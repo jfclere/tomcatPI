@@ -24,6 +24,14 @@ json_string = '{"deviceID": "' + PIid + '", "text": "' + mess + '"}'
 print(json.dumps(json_string))
 
 conn.send(body=json_string, destination='/queue/SampleQueue')
+conn.send(body=json_string, destination='/queue/SampleQueue')
+conn.send(body=json_string, destination='/queue/SampleQueue')
+conn.send(body=json_string, destination='/queue/SampleQueue')
+conn.send(body=json_string, destination='/queue/SampleQueue')
+conn.send(body=json_string, destination='/queue/SampleQueue')
+conn.send(body=json_string, destination='/queue/SampleQueue')
+conn.send(body=json_string, destination='/queue/SampleQueue')
+conn.send(body=json_string, destination='/queue/SampleQueue')
 
 # receive for our queue (hopefully a welcome or Hello)
 conn.subscribe(destination='/queue/' + PIid, id=1, ack='auto')
