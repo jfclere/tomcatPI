@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta content="width=device-width" name="viewport">
+    <meta charset="utf-8">
+    <title>Locations - STOMP Example</title>
+  </head>
+  <body>
+    <h1>Locations - STOMP Example</h1>
+      <form id='connect_form'>
+        <fieldset>
+          <label>WebSocket URL</label>
+          <input name=url id='connect_url' value='ws://192.168.1.114:61614' type="text">
+          <button id='connect_button' type="submit">Connect</button>
+          <button type="button" id='disconnect_button' disabled>Disconnect</button>
+        </fieldset>
+      </form>
+      <form id="text_form" style="display: none;">
+        <fieldset>
+          <legend>Send Text</legend>
+          Device: <select id="deviceID"></select>
+          <br>
+          Text: <input id='text' size=64 placeholder="type the text to sent to the device" type="text">
+          <br>
+          <button id='text_submit' type="submit">Send</button>
+        </fieldset>
+      </form>
+      <hr>
+
+      <div id="map-canvas" style="height:512px; width:100%; padding:0; margin:0">
+      </div>
+
+      <footer>&copy; 2014 <a href="http://mobile-web-messaging.net">Mobile &amp; Web Messaging</a></footer>
+
+      <!-- Scripts placed at the end of the document so the pages load faster -->
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+      <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.1/stomp.js"></script>
+      <script>
+$(document).ready(function() {
+  // the STOMP client
+  var client;
+  // Google map and the trackers to follow the devices
+  var map, trackers = {};
+
+  function initialize() {
+    var mapOptions = {
+      zoom: 2,
+      center: new google.maps.LatLng(30,0),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map($("#map-canvas").get(0), mapOptions);
+  }
+
+  // initialize the Google map.
+  google.maps.event.addDomListener(window, 'load', initialize);
+
+  // show the device at the given latitude and longitude
+  function show(deviceID, text) {
+    var position = new google.maps.LatLng(lat, lng);
+    // lazy instantiation of the map
+    if (!map) {
+      create_map(position);
+    }
+    if (trackers[deviceID]) {
+      // the tracker is known, we just need to update its position
+      trackers[deviceID].marker.setPosition(position);
+    } else {
+      // there is no tracker for this device yet, let's create it
+      var marker = new google.maps.Marker({
+        position: position,
+        map: map,
+        title: deviceID + " is here"});
+      var infowindow = new google.maps.InfoWindow({
+        content: "Device " + deviceID
+      });
+      var tracker = {
+        marker: marker
+      };
+      // add it to the trackers
+      trackers[deviceID] = tracker;
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map, marker);
+      });
+    }
+  }
+
+  // Connection to the STOMP broker
+  // and subscription to the device's position destinations.
+  //
+  // the url paramater is the Web Socket URL of the STOMP broker
+  function connect(url) {
+
+    // creates the callback that is called when the client
+    // is successfully connected to the STOMP broker
+    var connectedCallback =  function(frame) {
+      client.debug("connected to Stomp");
+      // disable the connect button
+      $("#connect_button").prop("disabled",true);
+      // enable the disconnect button
+      $("#disconnect_button").prop("disabled",false);
+      // show the form to send text to the devices
+      $("#text_form").show();
+
+      // once the client is connected, subscribe to the device's location destinations.
+
+      // we use a wildcard destination to register to any
+      // destination that matches this pattern.
+      // var destination = "/topic/device.*.location";
+      var destination = "/queue/SampleQueue";
+      client.subscribe(destination, function(message) {
+        // this function is called every time a message is received
+        // create an object from the JSON string contained in the message body
+        var payload = JSON.parse(message.body);
+
+        var deviceID = payload.deviceID;
+        if (!$("#deviceID option[value='" + deviceID + "']").length) {
+          // if the device ID is not already in the list of devices we can send orders to, we add it.
+          $('#deviceID').append($('<option>', {value:deviceID}).text(deviceID));
+        }
+        // show the device message in the frame...
+        show(deviceID, payload.text);
+      });
+    };
+
+    // create the STOMP client
+    client = Stomp.client(url);
+    // and connects to the STOMP broker
+    client.connect({}, connectedCallback);
+  }
+
+  // handles the connect_form
+  $('#connect_form').submit(function() {
+    var url = $("#connect_url").val();
+
+    connect(url);
+    return false;
+  });
+
+  // Send a text to a device
+  $('#text_form').submit(function() {
+    var deviceID = $("#deviceID").val();
+    var text = $("#text").val();
+
+    // sue the device's queue orders as the destination
+    // var destination = "/queue/device." + deviceID + ".text";
+    var destination = "/queue/" + deviceID;
+    // text is sent as a plain text string
+    client.send(destination, {}, text);
+    // reset the text input field
+    $("#text").val("");
+    return false;
+  });
+
+  function disconnect() {
+    // disconnect from the broker
+    client.disconnect(function() {
+      // once we are successfully disconnected, clear out all the trackers from the map
+      for (var tracker in trackers) {
+        trackers[tracker].marker.setMap(null);
+      }
+      trackers = {};
+    });
+    $("#deviceID").empty();
+    $("#connect_button").prop("disabled",false);
+    $("#disconnect_button").prop("disabled",true);
+    $("#text_form").hide();
+  }
+
+  $('#disconnect_button').click(function() {
+    disconnect();
+    return false;
+  });
+});
+    </script>
+  </body>
+</html>
