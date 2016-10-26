@@ -2,17 +2,37 @@ import stomp
 import json
 import time
 import uuid
+import threading
 from sense_hat import SenseHat
+
+global muststart
+muststart = True
+global text
+
+class myThread (threading.Thread):
+   def __init__(self):
+      global muststart
+      muststart = False
+      threading.Thread.__init__(self)
+   def run(self):
+      global text
+      while True:
+        sense.set_rotation(180)
+        red = (110, 0, 0)
+        sense.show_message(text, text_colour=red)
+      exit()
 
 class MyListener(stomp.ConnectionListener):
     def on_error(self, headers, message):
         print('received an error "%s"' % message)
     def on_message(self, headers, message):
+        global muststart
+        global text
+        text = message
+        if muststart:
+          thread = myThread()
+          thread.start()
         print('received a message "%s"' % message)
-        sense.set_rotation(180)
-        red = (110, 0, 0)
-        sense.show_message(message, text_colour=red)
-        
 
 # connect to the Astro hat
 sense = SenseHat()
