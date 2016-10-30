@@ -51,7 +51,7 @@ mess='Hello'
 json_string = '{"deviceID": "' + PIid + '", "text": "' + mess + '"}'
 print(json.dumps(json_string))
 
-conn.send(body=json_string, destination='/queue/SampleQueue')
+conn.send(body=json_string, destination='/topic/PITopic')
 
 # receive for our queue (hopefully a welcome or Hello)
 conn.subscribe(destination='/queue/' + PIid, id=1, ack='auto')
@@ -62,6 +62,6 @@ while True:
   temp = sense.get_temperature()
   mess='Temperature: ' + str(temp) + ' C'
   json_string = '{"deviceID": "' + PIid + '", "text": "' + mess + '"}'
-  conn.send(body=json_string, destination='/queue/SampleQueue')
+  conn.send(body=json_string, destination='/topic/PITopic')
  
 conn.disconnect()
