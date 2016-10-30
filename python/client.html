@@ -3,14 +3,14 @@
   <head>
     <meta content="width=device-width" name="viewport">
     <meta charset="utf-8">
-    <title>Locations - STOMP Example</title>
+    <title>Demo - STOMP Example</title>
   </head>
   <body>
-    <h1>Locations - STOMP Example</h1>
+    <h1>Demo - STOMP Example</h1>
       <form id='connect_form'>
         <fieldset>
           <label>WebSocket URL</label>
-          <input name=url id='connect_url' value='ws://192.168.1.114:61614' type="text">
+          <input name=url id='connect_url' value='ws://10.0.0.201:61614' type="text">
           <button id='connect_button' type="submit">Connect</button>
           <button type="button" id='disconnect_button' disabled>Disconnect</button>
         </fieldset>
@@ -34,8 +34,8 @@
       <footer>&copy; 2014 <a href="http://mobile-web-messaging.net">Mobile &amp; Web Messaging</a></footer>
 
       <!-- Scripts placed at the end of the document so the pages load faster -->
-      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.1/stomp.js"></script>
+      <script src="http://10.0.0.201/jquery.min.js"></script>
+      <script src="http://10.0.0.201/stomp.js"></script>
       <script>
 $(document).ready(function() {
   // the STOMP client
@@ -70,7 +70,7 @@ $(document).ready(function() {
       // we use a wildcard destination to register to any
       // destination that matches this pattern.
       // var destination = "/topic/device.*.location";
-      var destination = "/queue/SampleQueue";
+      var destination = "/topic/PITopic";
       client.subscribe(destination, function(message) {
         // this function is called every time a message is received
         // create an object from the JSON string contained in the message body
