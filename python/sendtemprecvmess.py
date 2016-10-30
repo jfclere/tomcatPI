@@ -38,7 +38,7 @@ class MyListener(stomp.ConnectionListener):
 sense = SenseHat()
 
 # connection to ActiveMQ on my laptop. 
-conn = stomp.Connection([('192.168.1.114', 61613)])
+conn = stomp.Connection([('10.0.0.201', 61613)])
 conn.set_listener('', MyListener())
  
 conn.start()
