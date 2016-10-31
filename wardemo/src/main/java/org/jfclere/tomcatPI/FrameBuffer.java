@@ -68,6 +68,11 @@ public class FrameBuffer extends HttpServlet {
     			out.println("context.lineWidth = 7;");
     			out.println("context.strokeStyle = 'black';");
     			out.println("context.stroke();");
+
+                        out.println("function myclick(event) {");
+                        out.println("     alert(\"clicked an " + i + "_" + j + "element \"  + event.clientX + \" \" + event.clientY);");
+                        out.println("}");
+                        out.println("canvas.addEventListener(\"click\", myclick, false);");
     			out.println("</script>");
     		}
     		out.println("</div>");
