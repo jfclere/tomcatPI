@@ -99,7 +99,21 @@ public class FrameBuffer extends HttpServlet {
                        // out.println("        console.log(error);");
                        // out.println("        };");
                        out.println("        request.send( null );");
+
                         // out.println("     alert(\"clicked an " + i + "_" + j + "element \"  + event.clientX + \" \" + event.clientY);");
+
+                        // Change the color to green locally.
+                        out.println("canvas = document.getElementById('" + myCanvas + "');");
+                        out.println("context = canvas.getContext('2d');");
+
+
+    			out.println("context.fillStyle = \"rgb(0, 511, 0 )\";");
+                        out.println("context.fill();");
+
+    			out.println("context.lineWidth = 7;");
+    			out.println("context.strokeStyle = 'black';");
+    			out.println("context.stroke();");
+
                         out.println("}");
                         out.println("canvas.addEventListener(\"click\", myclick, false);");
     			out.println("</script>");
