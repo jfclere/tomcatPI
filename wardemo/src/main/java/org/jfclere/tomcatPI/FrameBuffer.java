@@ -35,6 +35,16 @@ public class FrameBuffer extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // Process paramters.
+        String si = request.getParameter("i");
+        String sj = request.getParameter("j");
+        if (sj != null && si != null) {
+            int i = Integer.parseInt(si);
+            int j = Integer.parseInt(sj);
+            pi.writepix(i, j, pi.color(0,63,0));
+        }
+        System.out.println("pixel to change: " + si + ": " + sj);
     	PrintWriter out = response.getWriter();
     	out.println("<html>");
     	out.println("<body bgcolor=\"white\">");
@@ -51,7 +61,10 @@ public class FrameBuffer extends HttpServlet {
     		for (int j=0; j<8; j++) {
     			// build the display.
     			short pixel = pi.readpix(i, j);
-    			String color = pi.getRed(pixel)*8 + ", " + pi.getBlue(pixel)*4 + ", " + pi.getGreen(pixel)*8;
+    			// String color = pi.getRed(pixel)*8 + ", " + pi.getBlue(pixel)*4 + ", " + pi.getGreen(pixel)*8;
+    			//  RGB value such as rgb(0,0,255)
+    			String color = pi.getRed(pixel)*8 + ", " + pi.getGreen(pixel)*4 + ", " + pi.getBlue(pixel)*8;
+                        System.out.println("Color: " + color);
     			String myCanvas = "myCanvas" + i + "X" + j;
     			out.println("<canvas id=\"" + myCanvas + "\" width=\"50\" height=\"50\"></canvas>");
     			//out.println("<div style=\"width: 15px; height: 15px; color: navy; background-color: pink; border: 2px solid blue; padding: 5px;\">");
@@ -70,7 +83,23 @@ public class FrameBuffer extends HttpServlet {
     			out.println("context.stroke();");
 
                         out.println("function myclick(event) {");
-                        out.println("     alert(\"clicked an " + i + "_" + j + "element \"  + event.clientX + \" \" + event.clientY);");
+                        /* write the code to send the request */
+                        out.println("var request = new XMLHttpRequest();");
+                        out.println("var theUrl = \"http://10.0.0.239:8080/demo-1.0-SNAPSHOT/FrameBuffer?i=\" + " + i + " + \"&j=\" + " + j + ";");
+                        out.println("request.open( \"GET\", theUrl, false );");
+                       // out.println("request.method = \"GET\";");
+                       // out.println("request.url = \"https://10.0.0.201:8080/demo-1.0-SNAPSHOT/FrameBuffer?i=" + i + "&j=" + j + "\";");
+
+                       // out.println("request.success = function(response)");
+                       // out.println("{");
+                       // out.println("    console.log(response);");
+                       // out.println("    };");
+                       // out.println("    request.fail = function(error)");
+                       // out.println("    {");
+                       // out.println("        console.log(error);");
+                       // out.println("        };");
+                       out.println("        request.send( null );");
+                        // out.println("     alert(\"clicked an " + i + "_" + j + "element \"  + event.clientX + \" \" + event.clientY);");
                         out.println("}");
                         out.println("canvas.addEventListener(\"click\", myclick, false);");
     			out.println("</script>");
