@@ -1,0 +1,4 @@
+<web-app>
+  <distributable/>
+  <description>Number cluster demo webapp</description>
+</web-app>
