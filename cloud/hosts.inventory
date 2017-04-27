@@ -1,0 +1,24 @@
+[OSEv3:children]
+masters
+nodes
+etcd
+
+[OSEv3:vars]
+deployment_type=origin
+openshift_release=v1.4.1
+ansible_ssh_user=root
+openshift_router_selector='router=true'
+openshift_registry_selector='registry=true'
+openshift_master_default_subdomain=10.33.144.141.xip.io
+
+[masters]
+bela1
+
+[etcd]
+bela1
+
+[nodes]
+bela1 openshift_schedulable=false
+bela2 openshift_node_labels="{'router':'true','registry':'true'}"
+bela3 openshift_node_labels="{'router':'true','registry':'true'}"
+bela4 openshift_node_labels="{'router':'true','registry':'true'}"
