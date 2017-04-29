@@ -5,4 +5,5 @@ $ORIGIN mysrv.world.
 master IN A 10.0.0.201 ;
 blue IN A 10.0.0.202 ;
 green IN A 10.0.0.203 ;
+black IN A 10.0.0.204 ;
 jfcpc IN A 10.0.0.200 ;
