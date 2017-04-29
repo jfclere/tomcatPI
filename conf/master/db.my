@@ -1,0 +1,8 @@
+$TTL 1h ;
+$ORIGIN mysrv.world.
+@ IN SOA master.mysrv.world. master.mysrv.world. ( 0 6000 600 1W 3H )
+  IN NS master.mysrv.world. ;
+master IN A 10.0.0.201 ;
+blue IN A 10.0.0.202 ;
+green IN A 10.0.0.203 ;
+jfcpc IN A 10.0.0.200 ;

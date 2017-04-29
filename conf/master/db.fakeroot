@@ -1,0 +1,3 @@
+@ IN SOA ns.domain.com. hostmaster.domain.com. ( 1 3h 1h 1w 1d )
+  IN NS 10.0.0.201
+* IN A  10.0.0.201
