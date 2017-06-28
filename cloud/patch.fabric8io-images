@@ -1,0 +1,58 @@
+diff --git a/images/centos/openjdk8/jdk/Dockerfile b/images/centos/openjdk8/jdk/Dockerfile
+index eebf9d2..bd11a53 100644
+--- a/images/centos/openjdk8/jdk/Dockerfile
++++ b/images/centos/openjdk8/jdk/Dockerfile
+@@ -1,4 +1,4 @@
+-FROM project31/aarch64-centos:7
++FROM armv7/armhf-fedora
+ 
+ USER root
+ 
+@@ -9,13 +9,21 @@ ENV JAVA_APP_DIR=/deployments
+ 
+ # /dev/urandom is used as random source, which is prefectly safe
+ # according to http://www.2uo.de/myths-about-urandom/
+-RUN yum install -y \
+-       java-1.8.0-openjdk  \
+-       java-1.8.0-openjdk-devel \
+-    && echo "securerandom.source=file:/dev/urandom" >> /usr/lib/jvm/java/jre/lib/security/java.security
++#RUN yum install -y \
++#       java-1.8.0-openjdk  \
++#       java-1.8.0-openjdk-devel \
++#RUN  echo "securerandom.source=file:/dev/urandom" >> /usr/lib/jvm/java/jre/lib/security/java.security
+ 
++ADD jdk-8u121-linux-arm32-vfp-hflt.tar.gz /root
++
++RUN ln -s /root/jdk1.8.0_121/jre/ /etc/alternatives/jre
++RUN ln -s /root/jdk1.8.0_121/jre/bin/java /etc/alternatives/java
++RUN ln -s /etc/alternatives/java /usr/bin/java
++
++COPY tomcat-in-the-cloud-1.0-SNAPSHOT.jar /deployments
+ 
+ ENV JAVA_HOME /etc/alternatives/jre
++ENV OPENSHIFT_KUBE_PING_NAMESPACE default
+ 
+ # Agent bond including Jolokia and jmx_exporter
+ ADD agent-bond-opts /opt/run-java-options
+@@ -25,7 +33,7 @@ RUN mkdir -p /opt/agent-bond \
+  && chmod 444 /opt/agent-bond/agent-bond.jar \
+  && chmod 755 /opt/run-java-options
+ ADD jmx_exporter_config.yml /opt/agent-bond/
+-EXPOSE 8778 9779
++EXPOSE 8080 4000
+ 
+ # Add run script as /deployments/run-java.sh and make it executable
+ COPY run-java.sh debug-options container-limits java-default-options /deployments/
+diff --git a/images/centos/openjdk8/jdk/run-java.sh b/images/centos/openjdk8/jdk/run-java.sh
+index d4e85b2..4c08c50 100644
+--- a/images/centos/openjdk8/jdk/run-java.sh
++++ b/images/centos/openjdk8/jdk/run-java.sh
+@@ -227,7 +227,7 @@ startup() {
+      args="-jar ${JAVA_APP_JAR}"
+   fi
+   echo exec $(get_exec_args) java $(get_java_options) -cp "$(get_classpath)" ${args} $*
+-  exec $(get_exec_args) java $(get_java_options) -cp "$(get_classpath)" ${args} $*
++  exec $(get_exec_args) java -cp "$(get_classpath)" ${args} $*
+ }
+ 
+ # =============================================================================
