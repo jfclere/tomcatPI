@@ -13,6 +13,8 @@
         }
       },
       "spec" : {
+        "serviceAccountName": "tomcat-in-the-cloud",
+        "serviceAccount": "tomcat-in-the-cloud",
         "containers": [
           {
             "name": "tomcat-in-the-cloud",
