@@ -31,7 +31,7 @@
           ...
       </textarea>
 
-      <footer>&copy; 2016 <a href="mailto:jfclere@gmail.com">Jean-Frederic Clere</a></footer>
+      <footer>&copy; 2018 <a href="mailto:jfclere@gmail.com">Jean-Frederic Clere</a></footer>
 
       <!-- Scripts placed at the end of the document so the pages load faster -->
       <script src="http://10.0.0.201/jquery.min.js"></script>
@@ -46,6 +46,7 @@ $(document).ready(function() {
 	val +=text;
 	val +='\n'
 	document.getElementById("myTextarea").value = val;
+        document.getElementById("myTextarea").scrollTop = document.getElementById("myTextarea").scrollHeight;
   }
 
   // Connection to the STOMP broker
