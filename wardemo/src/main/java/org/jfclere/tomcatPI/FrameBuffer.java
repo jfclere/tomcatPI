@@ -50,10 +50,10 @@ public class FrameBuffer extends HttpServlet {
     	
     	out.println("<html>");
     	out.println("    <head>");
-        out.println("         <link rel=\"stylesheet\" href=\"../css/bootstrap.min.css\">");
-        out.println("         <link rel=\"stylesheet\" href=\"../css/styles.css\">");      
-        out.println("         <script src=\"../js/bootstrap.min.js\"></script>");
-        out.println("         <script type=\"text/javascript\" src=\"../js/script.js\"></script>");
+        out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\">");
+        out.println("         <link rel=\"stylesheet\" href=\"css/styles.css\">");      
+        out.println("         <script src=\"js/bootstrap.min.js\"></script>");
+        out.println("         <script type=\"text/javascript\" src=\"js/script.js\"></script>");
         out.println("         <title>" + title + "</title>");
         out.println("    </head>");
     	out.println("    <body>");
