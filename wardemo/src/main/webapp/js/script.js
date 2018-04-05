@@ -25,6 +25,7 @@ function addCanvas(canvas_id, color, param_i, param_j) {
         context.lineWidth = 7;
         context.strokeStyle = 'black';
         context.stroke();
+        location.reload();
     }
     canvas.addEventListener("click", canvasClick, false);
     canvas.canvas = canvas;
