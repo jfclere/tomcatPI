@@ -18,7 +18,7 @@ function addCanvas(canvas_id, color, param_i, param_j) {
         client.open("GET", requestUrl + "?" + requestQuery);
         client.send();
         
-        canvas = document.getElementById(event.target.canvas);
+        canvas = document.getElementById(event.target.canvas_id);
         context = canvas.getContext('2d');
         context.fillStyle = "rgb(0, 511, 0 )";
         context.fill();
