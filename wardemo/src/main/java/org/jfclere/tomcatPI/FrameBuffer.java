@@ -98,6 +98,10 @@ public class FrameBuffer extends HttpServlet {
     			String color = pi.getRed(pixel)*8 + ", " + pi.getGreen(pixel)*4 + ", " + pi.getBlue(pixel)*8;
     			String myCanvas = "myCanvas" + i + "X" + j;
     			
+    			if(color == "168, 84, 80") {
+                    color = "84, 81, 81";
+    			}
+    			
     			if (canvasIds != "") {
                     canvasIds += ",'#" + myCanvas + "'";
     			} else {

@@ -12,10 +12,9 @@ function addCanvas(canvas_id, color, param_i, param_j) {
 
     function canvasClick(event) {
         var client = new XMLHttpRequest();
-        var requestUrl = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname;
-        var requestQuery = "i=" + event.target.i + "&j=" + event.target.j;
+        var requestUrl = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname + "?i=" + event.target.i + "&j=" + event.target.j;
         
-        client.open("GET", requestUrl + "?" + requestQuery);
+        client.open("GET", requestUrl);
         client.send();
         
         canvas = document.getElementById(event.target.canvas_id);
@@ -25,7 +24,6 @@ function addCanvas(canvas_id, color, param_i, param_j) {
         context.lineWidth = 7;
         context.strokeStyle = 'black';
         context.stroke();
-        location.reload();
     }
     canvas.addEventListener("click", canvasClick, false);
     canvas.canvas_id = canvas_id;
