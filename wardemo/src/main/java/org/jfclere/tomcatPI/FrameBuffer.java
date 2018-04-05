@@ -83,7 +83,10 @@ public class FrameBuffer extends HttpServlet {
     		}
     		out.println("                     </div>");
     	}
-
+    	out.println("                     </div>");
+        out.println("                 </div>");
+        out.println("             </div>");
+        out.println("         </section>");
         out.println("     </body>");
         out.println("</html>");
     }
