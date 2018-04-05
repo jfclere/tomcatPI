@@ -62,7 +62,7 @@ public class FrameBuffer extends HttpServlet {
         out.println("                 <div class=\"panel panel-filled\">");
         out.println("                     <!-- Panel header -->");
         out.println("                     <div class=\"panel-heading\">");
-        out.println("                         " + title + ");
+        out.println("                         " + title);
         out.println("                     </div>");
         out.println("                     <hr>");
         out.println("                     <!-- Panel body -->");
