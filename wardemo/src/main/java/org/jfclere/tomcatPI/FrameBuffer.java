@@ -80,19 +80,20 @@ public class FrameBuffer extends HttpServlet {
         out.println("                 });");
         out.println("              });");
         out.println("        </script>");
-        out.println("         <section class=\"content\">");
-        out.println("             <div id=\"tomcatPI\">");
-        out.println("                 <div class=\"panel panel-filled\">");
-        out.println("                     <!-- Panel header -->");
-        out.println("                     <div class=\"panel-heading\">");
-        out.println("                         " + title);
-        out.println("                     </div>");
-        out.println("                     <hr>");
-        out.println("                     <!-- Panel body -->");
-        out.println("                     <div class=\"panel-body\">");
+        out.println("        <center>");
+        out.println("             <section class=\"content\">");
+        out.println("                 <div id=\"tomcatPI\">");
+        out.println("                     <div class=\"panel panel-filled\">");
+        out.println("                          <!-- Panel header -->");
+        out.println("                          <div class=\"panel-heading\">");
+        out.println("                              " + title);
+        out.println("                          </div>");
+        out.println("                          <hr>");
+        out.println("                          <!-- Panel body -->");
+        out.println("                          <div class=\"panel-body\">");
 
     	for (int i=0; i<8; i++) {
-    		out.println("                     <div id=\"row" + i + "\">");
+    		out.println("                             <div id=\"row" + i + "\">");
     		for (int j=0; j<8; j++) {
     			// build the display.
     			short pixel = pi.readpix(i, j);
@@ -109,15 +110,16 @@ public class FrameBuffer extends HttpServlet {
     			}
     			
     			System.out.println("Color: " + color);
-                out.println("                              <canvas id=\"" + myCanvas + "\" width=\"50\" height=\"50\" data-color=\"" + color + "\"></canvas>");
-                out.println("                              <script>addCanvas('" + myCanvas + "', '" + color + "', " + i + ", " + j + ");</script>");
+                out.println("                                       <canvas id=\"" + myCanvas + "\" width=\"50\" height=\"50\" data-color=\"" + color + "\"></canvas>");
+                out.println("                                       <script>addCanvas('" + myCanvas + "', '" + color + "', " + i + ", " + j + ");</script>");
     		}
-            out.println("                          </div>");
+            out.println("                             </div>");
     	}
-    	out.println("                     </div>");
+    	out.println("                          </div>");
+        out.println("                     </div>");
         out.println("                 </div>");
-        out.println("             </div>");
-        out.println("         </section>");
+        out.println("             </section>");
+        out.println("        </center>");
         out.println("     </body>");
         out.println("</html>");
     }
