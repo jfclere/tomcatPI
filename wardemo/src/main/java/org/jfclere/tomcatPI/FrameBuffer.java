@@ -53,11 +53,12 @@ public class FrameBuffer extends HttpServlet {
     	out.println("<html lang=\"en\">");
     	out.println("    <head>");
     	out.println("         <meta charset=\"utf-8\">");
-        out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\" />");
-        out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap-colorpicker.min.css\" />");
-        out.println("         <link rel=\"stylesheet\" href=\"css/styles.css\" />");
+        out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\">");
+        out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap-colorpicker.min.css\">");
+        out.println("         <link rel=\"stylesheet\" href=\"css/styles.css\">");
         out.println("         <!-- colorpicker lib: https://github.com/farbelous/bootstrap-colorpicker.git -->");
         out.println("         <script type=\"text/javascript\" src=\"js/jquery-3.2.1.min.js\"></script>");
+        out.println("         <script type=\"text/javascript\" src=\"js/popper.min.js\"></script>");
         out.println("         <script type=\"text/javascript\" src=\"js/bootstrap.min.js\"></script>");
         out.println("         <script type=\"text/javascript\" src=\"js/bootstrap-colorpicker.min.js\"></script>");
         out.println("         <script type=\"text/javascript\" src=\"js/script.js\"></script>");
