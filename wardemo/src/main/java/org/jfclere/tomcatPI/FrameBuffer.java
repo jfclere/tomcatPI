@@ -49,11 +49,13 @@ public class FrameBuffer extends HttpServlet {
         String title = "PI frame buffer demo";
     	String canvasIds = "";
     	
-    	out.println("<html>");
+    	out.println("<!DOCTYPE html>");
+    	out.println("<html lang=\"en\">");
     	out.println("    <head>");
-        out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\">");
-        out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap-colorpicker.min.css\">");
-        out.println("         <link rel=\"stylesheet\" href=\"css/styles.css\">");
+    	out.println("         <meta charset=\"utf-8\">");
+        out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\" />");
+        out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap-colorpicker.min.css\" />");
+        out.println("         <link rel=\"stylesheet\" href=\"css/styles.css\" />");
         out.println("         <!-- colorpicker lib: https://github.com/farbelous/bootstrap-colorpicker.git -->");
         out.println("         <script type=\"text/javascript\" src=\"js/bootstrap.min.js\"></script>");
         out.println("         <script type=\"text/javascript\" src=\"js/jquery-3.2.1.min.js\"></script>");
@@ -62,6 +64,19 @@ public class FrameBuffer extends HttpServlet {
         out.println("         <title>" + title + "</title>");
         out.println("    </head>");
     	out.println("    <body>");
+        out.println("         <div id=\"color_picker\" class=\"input-group colorpicker-component\">");
+        out.println("             <label>Color:</label>");
+        out.println("             <input type=\"text\" value=\"#00AABB\" class=\"form-control\" />");
+        out.println("             <span class=─\"input-group-addon\"><i></i></span>");
+        out.println("         </div>");
+        out.println("         <script>");
+        out.println("              $(function () {");
+        out.println("                 $(\"color_picker\").colorpicker({");
+        out.println("                       color: '#AA3399',");
+        out.println("                       format: 'rgba',");
+        out.println("                 });");
+        out.println("              });");
+        out.println("        </script>");
         out.println("         <section class=\"content\">");
         out.println("             <div id=\"tomcatPI\">");
         out.println("                 <div class=\"panel panel-filled\">");
@@ -94,13 +109,6 @@ public class FrameBuffer extends HttpServlet {
             out.println("                          </div>");
     	}
     	out.println("                     </div>");
-    	out.println("                     <script>");
-        out.println("                          $(function () {");
-        out.println("                               $(" + canvasIds + ").colorpicker({");
-        out.println("                                   format: \"rgba\",");
-        out.println("                               });");
-        out.println("                          });");
-        out.println("                     </script>");
         out.println("                 </div>");
         out.println("             </div>");
         out.println("         </section>");
