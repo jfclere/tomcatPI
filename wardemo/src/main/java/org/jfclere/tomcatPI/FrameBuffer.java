@@ -68,8 +68,9 @@ public class FrameBuffer extends HttpServlet {
         out.println("         <label>Color:</label>");
         out.println("         <hr>");
         out.println("         <div id=\"color_picker\" class=\"input-group colorpicker-component\">");
-        out.println("             <input type=\"text\" value=\"#00AABB\" class=\"form-control\" />");
-        out.println("             <span class=\"input-group-addon\"><i></i></span>");
+        out.println("             <span class=\"input-group-addon\">");
+        out.println("                   <canvas width=\"50\" height=\"50\"></canvas>");
+        out.println("             </span>");
         out.println("         </div>");
         out.println("         <script>");
         out.println("              $(function () {");
@@ -98,10 +99,9 @@ public class FrameBuffer extends HttpServlet {
     			String color = pi.getRed(pixel)*8 + ", " + pi.getGreen(pixel)*4 + ", " + pi.getBlue(pixel)*8;
     			String myCanvas = "myCanvas" + i + "X" + j;
     			
-    			if(color == "168, 84, 80") {
-                    color = "84, 81, 81";
-    			}
-    			
+    			/**
+    			* Keep this to use with a color picker
+    			*/
     			if (canvasIds != "") {
                     canvasIds += ",'#" + myCanvas + "'";
     			} else {
