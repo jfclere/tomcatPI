@@ -2,14 +2,14 @@ canvas {
     color: #fff;
     background-color: #51bf87;
     border-bottom:2px solid #41996c;
-},
+}
 
 canvas:hover, .btn-sky.active:focus, canvas:focus, .open>.dropdown-togglecanvas {
     color: #fff;
     background-color: #66c796;
     border-bottom:2px solid #529f78;
     outline: none;
-},
+}
 
 
 canvas:active, canvas.active {
@@ -19,7 +19,7 @@ canvas:active, canvas.active {
     outline: none;
     outline-offset: none;
     margin-top: 2px;
-},
+}
 
 .content::before {
     content: '';
@@ -34,7 +34,7 @@ canvas:active, canvas.active {
     background-image: -o-radial-gradient(center, circle cover, #393b45 0%, #2d3038 70%);
     background-image: radial-gradient(center, circle cover, #393b45 0%, #2d3038 70%);
     background-position: 50%, 50%;
-},
+}
 
 .content {
     margin-top: 60px;
@@ -46,7 +46,7 @@ canvas:active, canvas.active {
     height: auto;
     transition: margin-left 0.3s ease-out;
     -webkit-transition: margin-left 0.3s ease-out;
-},
+}
 
 .panel {
     background-color: transparent;
@@ -61,28 +61,28 @@ canvas:active, canvas.active {
     border-radius: 3px;
     margin-bottom: 20px;
     border: 1px solid transparent;
-},
+}
 
 .panel .panel-body {
     padding: 30px 15px 15px 15px;
-},
+}
 
 .panel.panel-filled .panel-body {
     padding-top: 10px;
-},
+}
 
 .panel .panel-footer {
     background-color: transparent;
     border: none;
-},
+}
 
 .panel > .panel-heading {
     color: #ffffff;
-},
+}
 
 .panel.panel-filled {
     background-color: rgba(68, 70, 79, 0.5);
-},
+}
 
 .form-control {
     display: block;
@@ -94,19 +94,19 @@ canvas:active, canvas.active {
     color: #949ba2;
     border: none;
     border-radius: 4px;
-},
+}
 
 .form-control::-moz-placeholder {
     color: #999;
     opacity: 1;
-},
+}
 
 body {
     font-size: 16px;
     line-height: 1.6;
     color: #949ba2;
     
-},
+}
 
 hr {
     margin-top: 20px;
@@ -116,7 +116,7 @@ hr {
     border-top-style: none;
     border-top-color: currentcolor;
     border-top: 1px solid #3d404c;
-},
+}
 
 label {
     color: #ffffff;
@@ -125,4 +125,4 @@ label {
     max-width: 100%;
     margin-bottom: 5px;
     font-weight: bold;
-},
+}
