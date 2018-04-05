@@ -47,12 +47,17 @@ public class FrameBuffer extends HttpServlet {
         System.out.println("pixel to change: " + si + ": " + sj);
     	PrintWriter out = response.getWriter();
         String title = "PI frame buffer demo";
+    	String canvasIds = "";
     	
     	out.println("<html>");
     	out.println("    <head>");
         out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\">");
-        out.println("         <link rel=\"stylesheet\" href=\"css/styles.css\">");      
-        out.println("         <script src=\"js/bootstrap.min.js\"></script>");
+        out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap-colorpicker.min.css\">");
+        out.println("         <link rel=\"stylesheet\" href=\"css/styles.css\">");
+        out.println("         <!-- colorpicker lib: https://github.com/farbelous/bootstrap-colorpicker.git -->");
+        out.println("         <script type=\"text/javascript\" src=\"js/bootstrap.min.js\"></script>");
+        out.println("         <script type=\"text/javascript\" src=\"js/jquery-3.2.1.min.js\"></script>");
+        out.println("         <script type=\"text/javascript\" src=\"js/bootstrap-colorpicker.min.js\"></script>");
         out.println("         <script type=\"text/javascript\" src=\"js/script.js\"></script>");
         out.println("         <title>" + title + "</title>");
         out.println("    </head>");
@@ -76,14 +81,26 @@ public class FrameBuffer extends HttpServlet {
     			String color = pi.getRed(pixel)*8 + ", " + pi.getGreen(pixel)*4 + ", " + pi.getBlue(pixel)*8;
     			String myCanvas = "myCanvas" + i + "X" + j;
     			
-    			System.out.println("Color: " + color);
+    			if (canvasIds != "") {
+                    canvasIds += ",'#" + myCanvas + "'";
+    			} else {
+                    canvasIds += "'#" + myCanvas + "'";
+    			}
     			
-    			out.println("                    <canvas id=\"" + myCanvas + "\" width=\"50\" height=\"50\"></canvas>");
-    			out.println("                    <script>addCanvas('" + myCanvas + "', '" + color + "', " + i + ", " + j + ");</script>");
+    			System.out.println("Color: " + color);
+                out.println("                              <canvas id=\"" + myCanvas + "\" width=\"50\" height=\"50\" data-color=\"" + color + "\"></canvas>");
+                out.println("                              <script>addCanvas('" + myCanvas + "', '" + color + "', " + i + ", " + j + ");</script>");
     		}
-    		out.println("                     </div>");
+            out.println("                          </div>");
     	}
     	out.println("                     </div>");
+    	out.println("                     <script>");
+        out.println("                          $(function () {");
+        out.println("                               $(" + canvasIds + ").colorpicker({");
+        out.println("                                   format: \"rgba\",");
+        out.println("                               });");
+        out.println("                          });");
+        out.println("                     </script>");
         out.println("                 </div>");
         out.println("             </div>");
         out.println("         </section>");
