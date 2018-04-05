@@ -57,8 +57,8 @@ public class FrameBuffer extends HttpServlet {
         out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap-colorpicker.min.css\" />");
         out.println("         <link rel=\"stylesheet\" href=\"css/styles.css\" />");
         out.println("         <!-- colorpicker lib: https://github.com/farbelous/bootstrap-colorpicker.git -->");
-        out.println("         <script type=\"text/javascript\" src=\"js/bootstrap.min.js\"></script>");
         out.println("         <script type=\"text/javascript\" src=\"js/jquery-3.2.1.min.js\"></script>");
+        out.println("         <script type=\"text/javascript\" src=\"js/bootstrap.min.js\"></script>");
         out.println("         <script type=\"text/javascript\" src=\"js/bootstrap-colorpicker.min.js\"></script>");
         out.println("         <script type=\"text/javascript\" src=\"js/script.js\"></script>");
         out.println("         <title>" + title + "</title>");
