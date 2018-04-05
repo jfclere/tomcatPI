@@ -28,7 +28,7 @@ function addCanvas(canvas_id, color, param_i, param_j) {
         location.reload();
     }
     canvas.addEventListener("click", canvasClick, false);
-    canvas.canvas = canvas;
+    canvas.canvas_id = canvas_id;
     canvas.i = param_i;
     canvas.j = param_j;
 }

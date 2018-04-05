@@ -67,8 +67,9 @@ public class FrameBuffer extends HttpServlet {
     	out.println("    <body>");
         out.println("         <div id=\"color_picker\" class=\"input-group colorpicker-component\">");
         out.println("             <label>Color:</label>");
+         out.println("            <hr>");
         out.println("             <input type=\"text\" value=\"#00AABB\" class=\"form-control\" />");
-        out.println("             <span class=─\"input-group-addon\"><i></i></span>");
+        out.println("             <span class=\"input-group-addon\"><i></i></span>");
         out.println("         </div>");
         out.println("         <script>");
         out.println("              $(function () {");
