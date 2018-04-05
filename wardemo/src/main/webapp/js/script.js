@@ -13,7 +13,7 @@ function addCanvas(canvas_id, color, param_i, param_j) {
     function canvasClick(event) {
         var client = new XMLHttpRequest();
         var requestUrl = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname;
-        var requestQuery = "i=" + event.target.i + "&j=" + event.target.j + ";
+        var requestQuery = "i=" + event.target.i + "&j=" + event.target.j;
         
         client.open("GET", requestUrl + "?" + requestQuery);
         client.send();
