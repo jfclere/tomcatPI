@@ -45,6 +45,9 @@ canvas:active, canvas.active {
     height: auto;
     transition: margin-left 0.3s ease-out;
     -webkit-transition: margin-left 0.3s ease-out;
+    max-width: 100%;
+    min-width: 550px;
+    height: auto;
 }
 
 .panel {
@@ -60,6 +63,9 @@ canvas:active, canvas.active {
     border-radius: 3px;
     margin-bottom: 20px;
     border: 1px solid transparent;
+    max-width: 100%;
+    min-width: 520px;
+    height: auto;
 }
 
 .panel .panel-body {
