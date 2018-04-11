@@ -1,3 +1,7 @@
+body {
+    line-height: 0;
+}
+
 canvas {
     color: #fff;
     background-color: #51bf87;
@@ -47,8 +51,8 @@ canvas:active, canvas.active {
     height: auto;
     transition: margin-left 0.3s ease-out;
     -webkit-transition: margin-left 0.3s ease-out;
-    max-width: 100%;
-    min-width: 550px;
+    max-width: 550px;
+    min-width: 530px;
     height: auto;
 }
 
