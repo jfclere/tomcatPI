@@ -50,9 +50,11 @@ public class FrameBuffer extends HttpServlet {
     	String canvasIds = "";
     	
     	out.println("<!DOCTYPE html>");
-    	out.println("<html lang=\"en\">");
-    	out.println("    <head>");
-    	out.println("         <meta charset=\"utf-8\">");
+        out.println("    <head>");
+        out.println("         <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
+        out.println("         <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />");
+        out.println("         <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"\>");
+    	out.println("         <meta charset=\"UTF-8\">");
         out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\">");
         out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap-colorpicker.min.css\">");
         out.println("         <link rel=\"stylesheet\" href=\"css/styles.css\">");
