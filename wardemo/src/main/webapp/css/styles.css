@@ -52,8 +52,9 @@ canvas:active, canvas.active {
     transition: margin-left 0.3s ease-out;
     -webkit-transition: margin-left 0.3s ease-out;
     max-width: 550px;
-    min-width: 530px;
+    min-width: 230px;
     height: auto;
+    min-height: 280px;
 }
 
 .panel {
