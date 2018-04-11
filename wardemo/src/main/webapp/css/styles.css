@@ -2,6 +2,8 @@ canvas {
     color: #fff;
     background-color: #51bf87;
     border-bottom:2px solid #41996c;
+    max-width: 2.6vw;
+    height: auto;
 }
 
 canvas:hover, .btn-sky.active:focus, canvas:focus, .open>.dropdown-togglecanvas {
@@ -63,7 +65,6 @@ canvas:active, canvas.active {
     border-radius: 3px;
     margin-bottom: 20px;
     border: 1px solid transparent;
-    max-width: 100%;
     min-width: 520px;
     height: auto;
 }
