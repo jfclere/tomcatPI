@@ -39,7 +39,7 @@ function rgbToHex(rgb_str) {
     var rgb = /rgb\((\d+), (\d+), (\d+)\)/.exec(rgb_str);
     var r = rgb[1], g = rgb[2], b = rgb[3];
     
-     alert("R:"+r+" | G:"+g+"| B:"+b+" => RGBA: "+rgb_str);
+    // alert("R:"+r+" | G:"+g+"| B:"+b+" => RGBA: "+rgb_str);
     return toHex(r)+toHex(g)+toHex(b);
 }
 
