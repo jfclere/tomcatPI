@@ -44,7 +44,7 @@ public class FrameBuffer extends HttpServlet {
     }
     
     public int hexColorBlue(int hex_color) {
-        int b = (hex_colr & 0xFF);
+        int b = (hex_color & 0xFF);
         
         return b;
     }
