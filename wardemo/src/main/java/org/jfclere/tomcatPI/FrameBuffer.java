@@ -39,12 +39,14 @@ public class FrameBuffer extends HttpServlet {
         // Process paramters.
         String si = request.getParameter("i");
         String sj = request.getParameter("j");
-        if (sj != null && si != null) {
+        String sc = request.getParameter("c");
+        
+        if (sj != null && si != null && sc != null) {
             int i = Integer.parseInt(si);
             int j = Integer.parseInt(sj);
-            pi.writepix(i, j, pi.color(0,63,0));
+            pi.writepix(i, j, pi.color(hexColorRed(hex_color),hexColorGreen(hex_color),hexColorBlue(hex_color)));
+            System.out.println("pixel to change: " + si + ": " + sj + " => color: " + sc);
         }
-        System.out.println("pixel to change: " + si + ": " + sj);
     	PrintWriter out = response.getWriter();
         String title = "PI frame buffer demo";
     	String canvasIds = "";
@@ -99,7 +101,7 @@ public class FrameBuffer extends HttpServlet {
     		for (int j=0; j<8; j++) {
     			// build the display.
     			short pixel = pi.readpix(j, i);
-    			String color = pi.getRed(pixel)*8 + ", " + pi.getGreen(pixel)*4 + ", " + pi.getBlue(pixel)*8;
+    			String color = pi.getRed(pixel) + ", " + pi.getGreen(pixel) + ", " + pi.getBlue(pixel);
     			String myCanvas = "myCanvas" + i + "X" + j;
     			
     			/**
@@ -133,5 +135,24 @@ public class FrameBuffer extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+    
+    
 
+    protected int hexColorRed(hex_color) {
+        int r = (hex & 0xFF0000) >> 16;
+        
+        return r;
+    }
+
+    protected int hexColorGreen(hex_color) {
+        int g = (hex & 0xFF00) >> 8;
+        
+        return g;
+    }
+    
+    protected int hexColorBlue(hex_color) {
+        int b = (hex & 0xFF);
+        
+        return b;
+    }
 }

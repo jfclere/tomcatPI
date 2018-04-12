@@ -11,15 +11,16 @@ function addCanvas(canvas_id, color, param_i, param_j) {
     context.stroke();
 
     function canvasClick(event) {
+        canvas = document.getElementById(event.target.canvas_id);
+        userColor = document.getElementById("userColor");
+        context = canvas.getContext('2d');
+        
         var client = new XMLHttpRequest();
-        var requestUrl = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname + "?i=" + event.target.i + "&j=" + event.target.j;
+        var requestUrl = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname + "?i=" + event.target.i + "&j=" + event.target.j + "&c=0x" + toHex(userColor);
         
         client.open("GET", requestUrl);
         client.send();
         
-        canvas = document.getElementById(event.target.canvas_id);
-        userColor = document.getElementById("userColor");
-        context = canvas.getContext('2d');
         context.fillStyle = userColor.value;
         context.fill();
         context.lineWidth = 7;
