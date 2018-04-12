@@ -35,18 +35,32 @@ function addCanvas(canvas_id, color, param_i, param_j) {
 
 
 
-function rgbToHex(RGB) {
-    var rgb = RGB.match(/[.?\d]+/g);
-    var R = rgb[0];
-    var G = rgb[1];
-    var B = rgb[2];
-     alert("R:"+R+" | G:"+G+"| B:"+B+" => RGB: "+RGB);
-    return toHex(R)+toHex(G)+toHex(B);
+function rgbToHex(rgba_str) {
+    var colorStr = rgba_str.slice(rgba_str.indexOf('(') + 1, rgba_str.indexOf(')')); // "100, 0, 255, 0.5"
+    var colorArr = rgba_str.split(','),
+    i = colorArr.length;
+
+    while (i--) {
+        colorArr[i] = parseInt(colorArr[i], 10);
+    }
+
+    var colorObj = {
+        r: colorArr[0],
+        g: colorArr[1],
+        b: colorArr[2],
+        a: colorArr[3]
+    }
+    
+     alert("R:"+colorObj.r+" | G:"+colorObj.g+"| B:"+colorObj.b+" => RGBA: "+rgba_str);
+    return toHex(colorObj.r)+toHex(colorObj.g)+toHex(colorObj.b);
 }
 
 function toHex(n) {
   n = parseInt(n,10);
   if (isNaN(n)) return "00";
-  n = Math.max(0,Math.min(n,255));return "0123456789ABCDEF".charAt((n-n%16)/16) + "0123456789ABCDEF".charAt(n%16);
+  n = Math.max(0,Math.min(n,255));
+  
+  return "0123456789ABCDEF".charAt((n-n%16)/16) + "0123456789ABCDEF".charAt(n%16);
 }
+
 
