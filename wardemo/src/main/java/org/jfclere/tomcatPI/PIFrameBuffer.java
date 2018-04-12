@@ -59,6 +59,24 @@ public class PIFrameBuffer {
 		cache = 0x0007;
 		return (pixel & cache) * 8 + green;
 	}
+	
+    public int hexColorRed(int hex_color) {
+        int r = (hex_color & 0xFF0000) >> 16;
+        
+        return r;
+    }
+
+    public int hexColorGreen(int hex_color) {
+        int g = (hex_color & 0xFF00) >> 8;
+        
+        return g;
+    }
+    
+   public int hexColorBlue(int hex_color) {
+        int b = (hex_colr & 0xFF);
+        
+        return b;
+    }
 
 	public static void main(String[] args) throws IOException {
 		/*
