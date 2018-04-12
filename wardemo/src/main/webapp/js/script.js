@@ -4,7 +4,7 @@ function addCanvas(canvas_id, color, param_i, param_j) {
 
     context.beginPath();
     context.rect(0, 0, 50, 50);
-    context.fillStyle = "rgb("+color +")";
+    context.fillStyle = "rgb("+color+")";
     context.fill();
     context.lineWidth = 7;
     context.strokeStyle = 'black';
@@ -48,7 +48,6 @@ function rgbToHex(rgba_str) {
         r: colorArr[0],
         g: colorArr[1],
         b: colorArr[2],
-        a: colorArr[3]
     }
     
      alert("R:"+colorObj.r+" | G:"+colorObj.g+"| B:"+colorObj.b+" => RGBA: "+rgba_str);
