@@ -8,6 +8,7 @@ canvas {
     border-bottom:2px solid #41996c;
     max-width: 2.6vw;
     height: auto;
+    min-width: 20px;
 }
 
 canvas:hover, .btn-sky.active:focus, canvas:focus, .open>.dropdown-togglecanvas {
@@ -72,6 +73,7 @@ canvas:active, canvas.active {
     border: 1px solid transparent;
     min-width: 520px;
     height: auto;
+    max-height: 600px;
 }
 
 .panel .panel-body {

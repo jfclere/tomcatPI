@@ -18,8 +18,9 @@ function addCanvas(canvas_id, color, param_i, param_j) {
         client.send();
         
         canvas = document.getElementById(event.target.canvas_id);
+        userColor = document.getElementById("userColor");
         context = canvas.getContext('2d');
-        context.fillStyle = "rgb(0, 511, 0 )";
+        context.fillStyle = userColor.value;
         context.fill();
         context.lineWidth = 7;
         context.strokeStyle = 'black';
@@ -30,3 +31,16 @@ function addCanvas(canvas_id, color, param_i, param_j) {
     canvas.i = param_i;
     canvas.j = param_j;
 }
+
+
+
+function rgbToHex(R,G,B) {
+    return toHex(R)+toHex(G)+toHex(B);
+}
+
+function toHex(n) {
+  n = parseInt(n,10);
+  if (isNaN(n)) return "00";
+  n = Math.max(0,Math.min(n,255));return "0123456789ABCDEF".charAt((n-n%16)/16) + "0123456789ABCDEF".charAt(n%16);
+}
+
