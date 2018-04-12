@@ -62,7 +62,8 @@ public class FrameBuffer extends HttpServlet {
         if (sj != null && si != null && sc != null) {
             int i = Integer.parseInt(si);
             int j = Integer.parseInt(sj);
-            int c = Integer.parseInt(sc);
+            int c = Integer.decode(sc);
+            
             pi.writepix(i, j, pi.color(hexColorRed(c),hexColorGreen(c),hexColorBlue(c)));
             System.out.println("pixel to change: " + si + ": " + sj + " => color: " + sc);
         }
