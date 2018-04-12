@@ -35,23 +35,12 @@ function addCanvas(canvas_id, color, param_i, param_j) {
 
 
 
-function rgbToHex(rgba_str) {
-    var colorStr = rgba_str.slice(rgba_str.indexOf('(') + 1, rgba_str.indexOf(')')); // "100, 0, 255, 0.5"
-    var colorArr = rgba_str.split(','),
-    i = colorArr.length;
-
-    while (i--) {
-        colorArr[i] = parseInt(colorArr[i], 10);
-    }
-
-    var colorObj = {
-        r: colorArr[0],
-        g: colorArr[1],
-        b: colorArr[2],
-    }
+function rgbToHex(rgb_str) {
+    var rgb = /rgb\((\d+), (\d+), (\d+)\)/.exec(rgb_str);
+    var r = rgb[1], g = rgb[2], b = rgb[3];
     
-     alert("R:"+colorObj.r+" | G:"+colorObj.g+"| B:"+colorObj.b+" => RGBA: "+rgba_str);
-    return toHex(colorObj.r)+toHex(colorObj.g)+toHex(colorObj.b);
+     alert("R:"+r+" | G:"+g+"| B:"+b+" => RGBA: "+rgb_str);
+    return toHex(r)+toHex(g)+toHex(b);
 }
 
 function toHex(n) {
