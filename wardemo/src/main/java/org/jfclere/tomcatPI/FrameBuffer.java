@@ -30,6 +30,24 @@ public class FrameBuffer extends HttpServlet {
         } catch(java.io.IOException ex) {
         }
     }
+    
+    public int hexColorRed(int hex_color) {
+        int r = (hex_color & 0xFF0000) >> 16;
+        
+        return r;
+    }
+
+    public int hexColorGreen(int hex_color) {
+        int g = (hex_color & 0xFF00) >> 8;
+        
+        return g;
+    }
+    
+    public int hexColorBlue(int hex_color) {
+        int b = (hex_colr & 0xFF);
+        
+        return b;
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
