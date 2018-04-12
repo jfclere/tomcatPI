@@ -16,7 +16,7 @@ function addCanvas(canvas_id, color, param_i, param_j) {
         context = canvas.getContext('2d');
         
         var client = new XMLHttpRequest();
-        var requestUrl = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname + "?i=" + event.target.i + "&j=" + event.target.j + "&c=0x" + toHex(userColor);
+        var requestUrl = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname + "?i=" + event.target.i + "&j=" + event.target.j + "&c=0x" + toHex(userColor.value);
         
         client.open("GET", requestUrl);
         client.send();
