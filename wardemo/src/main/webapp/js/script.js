@@ -36,7 +36,7 @@ function addCanvas(canvas_id, color, param_i, param_j) {
 
 
 function rgbToHex(rgb_str) {
-    var rgb = /rgb\((\d+), (\d+), (\d+)\)/.exec(rgb_str);
+    var rgb = /rgba?\((\d+), (\d+), (\d+)(?:,\s*\d+)?\)/.exec(rgb_str);
     var r = rgb[1], g = rgb[2], b = rgb[3];
     
     // alert("R:"+r+" | G:"+g+"| B:"+b+" => RGBA: "+rgb_str);

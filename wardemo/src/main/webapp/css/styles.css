@@ -2,6 +2,19 @@ body {
     line-height: 0;
 }
 
+#userColor {
+    width: 50px;
+    max-width: 100px;
+    margin-right: 20px;
+    background-color: transparent;
+}
+
+#colorBox {
+    width: 20px;
+    height: 20px;
+    padding-top: 10px;
+}
+
 canvas {
     color: #fff;
     background-color: #51bf87;
