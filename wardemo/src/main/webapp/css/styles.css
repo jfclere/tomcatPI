@@ -3,8 +3,7 @@ body {
 }
 
 #userColor {
-    width: 50px;
-    max-width: 100px;
+    max-width: 180px;
     margin-right: 20px;
     background-color: transparent;
 }
