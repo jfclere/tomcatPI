@@ -36,9 +36,10 @@ function addCanvas(canvas_id, color, param_i, param_j) {
 
 
 function rgbToHex(RGB) {
-    var R = parseInt(RGB.substring(4,6) ,16);
-    var G = parseInt(RGB.substring(6,8) ,16);
-    var B = parseInt(RGB.substring(8,10) ,16);
+    var rgb = RGB.match(/[.?\d]+/g);
+    var R = rgb[0];
+    var G = rgb[1];
+    var B = rgb[2];
      alert("R:"+R+" | G:"+G+"| B:"+B+" => RGB: "+RGB);
     return toHex(R)+toHex(G)+toHex(B);
 }
