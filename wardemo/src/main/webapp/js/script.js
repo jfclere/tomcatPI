@@ -39,7 +39,7 @@ function rgbToHex(RGB) {
     var R = parseInt(RGB.substring(0,2) ,16);
     var G = parseInt(RGB.substring(2,4) ,16);
     var B = parseInt(RGB.substring(4,6) ,16);
-     
+     alert("R:"+R+" | G:"+G+"| B:"+B+" => RGB: "+RGB);
     return toHex(R)+toHex(G)+toHex(B);
 }
 
