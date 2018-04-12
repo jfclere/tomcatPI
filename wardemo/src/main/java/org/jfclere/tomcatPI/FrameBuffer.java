@@ -138,19 +138,19 @@ public class FrameBuffer extends HttpServlet {
     
     
 
-    protected int hexColorRed(hex_color) {
+    protected int hexColorRed(hex_color) throws ServletException, IOException {
         int r = (hex & 0xFF0000) >> 16;
         
         return r;
     }
 
-    protected int hexColorGreen(hex_color) {
+    protected int hexColorGreen(hex_color) throws ServletException, IOException {
         int g = (hex & 0xFF00) >> 8;
         
         return g;
     }
     
-    protected int hexColorBlue(hex_color) {
+    protected int hexColorBlue(hex_color) throws ServletException, IOException {
         int b = (hex & 0xFF);
         
         return b;
