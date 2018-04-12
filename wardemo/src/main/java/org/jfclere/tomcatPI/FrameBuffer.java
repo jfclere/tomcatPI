@@ -99,7 +99,12 @@ public class FrameBuffer extends HttpServlet {
         out.println("              $(function () {");
         out.println("                 $(\"#color_picker\").colorpicker({");
         out.println("                       color: '#AA3399',");
-        out.println("                       format: 'rgb'");
+        out.println("                       format: 'rgb',");
+        out.println("                       colorSelectors: {");
+        out.println("                           'black': '#000000', 'white': '#ffffff', 'red': '#FF0000', 'default': '#777777',");
+        out.println("                           'primary': '#337ab7', 'success': '#5cb85c', 'info': '#5bc0de', 'warning': '#f0ad4e',");
+        out.println("                           'danger': '#d9534f'");
+        out.println("                       }");
         out.println("                 });");
         out.println("              });");
         out.println("        </script>");
