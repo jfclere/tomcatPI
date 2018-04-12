@@ -98,7 +98,7 @@ public class FrameBuffer extends HttpServlet {
     		out.println("                             <div id=\"row" + i + "\">");
     		for (int j=0; j<8; j++) {
     			// build the display.
-    			short pixel = pi.readpix(i, j);
+    			short pixel = pi.readpix(j, i);
     			String color = pi.getRed(pixel)*8 + ", " + pi.getGreen(pixel)*4 + ", " + pi.getBlue(pixel)*8;
     			String myCanvas = "myCanvas" + i + "X" + j;
     			
