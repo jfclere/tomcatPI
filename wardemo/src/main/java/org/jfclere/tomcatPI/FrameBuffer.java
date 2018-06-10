@@ -85,7 +85,7 @@ public class FrameBuffer extends HttpServlet {
                         out.println("function myclick(event) {");
                         /* write the code to send the request */
                         out.println("var request = new XMLHttpRequest();");
-                        out.println("var theUrl = \"http://10.0.0.239:8080/demo-1.0-SNAPSHOT/FrameBuffer?i=\" + " + i + " + \"&j=\" + " + j + ";");
+                        out.println("var theUrl = \"http://10.0.0.203:8080/demo-1.0-SNAPSHOT/FrameBuffer?i=\" + " + i + " + \"&j=\" + " + j + ";");
                         out.println("request.open( \"GET\", theUrl, false );");
                        // out.println("request.method = \"GET\";");
                        // out.println("request.url = \"https://10.0.0.201:8080/demo-1.0-SNAPSHOT/FrameBuffer?i=" + i + "&j=" + j + "\";");

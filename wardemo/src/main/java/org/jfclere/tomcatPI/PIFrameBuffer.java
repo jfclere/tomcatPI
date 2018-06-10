@@ -20,7 +20,7 @@ public class PIFrameBuffer {
 	}
 	public void clear(int color) throws IOException {
 	     for (int i = 0; i < length; i++) {
-	       	file.writeByte(0xAA);
+	       	file.writeByte(0x00);
 	     }
 	}
 	/* Convert the color to the corresponding short RGB565 */
