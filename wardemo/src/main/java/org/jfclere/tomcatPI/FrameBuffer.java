@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(description = "Frame buffer handler for Astro Hat", urlPatterns = { "/FrameBuffer" })
 public class FrameBuffer extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVerparam_ionUID = 1L;
 	private static PIFrameBuffer pi = null;
 
     /**
@@ -23,7 +23,6 @@ public class FrameBuffer extends HttpServlet {
      * @throws FileNotFoundException 
      */
     public FrameBuffer() throws FileNotFoundException {
-        // TODO Auto-generated constructor stub
     	pi = new PIFrameBuffer("/dev/fb1", "rw");
         try {
             pi.clear(0);
@@ -31,41 +30,25 @@ public class FrameBuffer extends HttpServlet {
         }
     }
     
-    public int hexColorRed(int hex_color) {
-        int r = (hex_color & 0xFF0000) >> 16;
-        
-        return r;
-    }
-
-    public int hexColorGreen(int hex_color) {
-        int g = (hex_color & 0xFF00) >> 8;
-        
-        return g;
-    }
-    
-    public int hexColorBlue(int hex_color) {
-        int b = (hex_color & 0xFF);
-        
-        return b;
-    }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         // Process paramters.
-        String si = request.getParameter("i");
-        String sj = request.getParameter("j");
-        String sc = request.getParameter("c");
-        
-        if (sj != null && si != null && sc != null) {
-            int i = Integer.parseInt(si);
-            int j = Integer.parseInt(sj);
-            int c = Integer.decode(sc);
-            
-            pi.writepix(i, j, pi.color(hexColorRed(c),hexColorGreen(c),hexColorBlue(c)));
-            System.out.println("pixel to change: " + si + ": " + sj + " => color: " + sc);
+        String param_i = request.getParameter("i");
+        String param_j = request.getParameter("j");
+        String param_red = request.getParameter("red");
+        String param_green = request.getParameter("green");
+        String param_blue = request.getParameter("blue");
+
+        if (param_j != null && param_i != null && param_rgb565 != null) {
+            int p_i = Integer.parseInt(param_i);
+            int p_j = Integer.parseInt(param_j);
+            int red = Integer.parseInt(param_red);
+            int green = Integer.parseInt(param_green);
+            int blue = Integer.parseInt(param_blue);
+
+            pi.writepix(p_i, p_j, pi.color(red, green, blue));
         }
     	PrintWriter out = response.getWriter();
         String title = "PI frame buffer demo";
@@ -77,15 +60,15 @@ public class FrameBuffer extends HttpServlet {
         out.println("         <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
         out.println("         <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
     	out.println("         <meta charset=\"UTF-8\">");
-        out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\" />");
-        out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap-colorpicker.min.css\" />");
-        out.println("         <link rel=\"stylesheet\" href=\"css/styles.css\" />");
+        out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\">");
+        out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap-colorpicker.min.css\">");
+        out.println("         <link rel=\"stylesheet\" href=\"css/styles.css\">");
         out.println("         <!-- colorpicker lib: https://github.com/farbelous/bootstrap-colorpicker.git -->");
         out.println("         <script type=\"text/javascript\" src=\"js/jquery-3.2.1.min.js\"></script>");
         out.println("         <script type=\"text/javascript\" src=\"js/popper.min.js\"></script>");
+        out.println("         <script type=\"text/javascript\" src=\"js/tooltip.min.js\"></script>");
         out.println("         <script type=\"text/javascript\" src=\"js/bootstrap.min.js\"></script>");
         out.println("         <script type=\"text/javascript\" src=\"js/bootstrap-colorpicker.min.js\"></script>");
-        out.println("         <script type=\"text/javascript\" src=\"js/script.js\"></script>");
         out.println("         <title>" + title + "</title>");
         out.println("    </head>");
     	out.println("    <body>");
@@ -95,19 +78,6 @@ public class FrameBuffer extends HttpServlet {
         out.println("             <span class=\"input-group-addon\"><i id=\"colorBox\"></i></span>");
         out.println("         </div>");
         out.println("         <hr>");
-        out.println("         <script>");
-        out.println("              $(function () {");
-        out.println("                 $(\"#color_picker\").colorpicker({");
-        out.println("                       color: '#AA3399',");
-        out.println("                       format: 'rgb',");
-        out.println("                       colorSelectors: {");
-        out.println("                           'black': '#000000', 'white': '#ffffff', 'red': '#FF0000', 'default': '#777777',");
-        out.println("                           'primary': '#337ab7', 'success': '#5cb85c', 'info': '#5bc0de', 'warning': '#f0ad4e',");
-        out.println("                           'danger': '#d9534f'");
-        out.println("                       }");
-        out.println("                 });");
-        out.println("              });");
-        out.println("        </script>");
         out.println("        <center>");
         out.println("             <section class=\"content\">");
         out.println("                 <div id=\"tomcatPI\">");
@@ -118,28 +88,17 @@ public class FrameBuffer extends HttpServlet {
         out.println("                          </div>");
         out.println("                          <hr>");
         out.println("                          <!-- Panel body -->");
-        out.println("                          <div class=\"panel-body\">");
-
+        out.println("                          <div class=\"panel-body\"><table><tbody>");
+        
     	for (int i=0; i<8; i++) {
     		out.println("                             <div id=\"row" + i + "\">");
     		for (int j=0; j<8; j++) {
-    			// build the display.
-    			short pixel = pi.readpix(j, i);
+    			short pixel = pi.readpix(i, j);
     			String color = pi.getRed(pixel) + ", " + pi.getGreen(pixel) + ", " + pi.getBlue(pixel);
     			String myCanvas = "myCanvas" + i + "X" + j;
-    			
-    			/**
-    			* Keep this to use with a color picker
-    			*/
-    			if (canvasIds != "") {
-                    canvasIds += ",'#" + myCanvas + "'";
-    			} else {
-                    canvasIds += "'#" + myCanvas + "'";
-    			}
-    			
-    			System.out.println("Color: " + color);
-                out.println("                                       <canvas id=\"" + myCanvas + "\" width=\"50\" height=\"50\" data-color=\"" + color + "\"></canvas>");
-                out.println("                                       <script>addCanvas('" + myCanvas + "', '" + color + "', " + i + ", " + j + ");</script>");
+
+                out.println("                                       <canvas id=\"" + myCanvas + "\" width=\"50\" height=\"50\" data-color=\"rgb(" + color + ")\" onchange=\"changeColor('" + myCanvas + "');\"></canvas>");
+
     		}
             out.println("                             </div>");
     	}
@@ -149,6 +108,10 @@ public class FrameBuffer extends HttpServlet {
         out.println("             </section>");
         out.println("        </center>");
         out.println("     </body>");
+        out.println("     <script type=\"text/javascript\" src=\"js/script.js\"></script>");
+        out.println("     <script>");
+        out.println("        initCanvas();");
+        out.println("     </script>");
         out.println("</html>");
     }
 
@@ -156,7 +119,6 @@ public class FrameBuffer extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 }
