@@ -12,31 +12,26 @@ public class PIFrameBuffer {
 	public PIFrameBuffer(String name, String permission) throws FileNotFoundException {
 		file = new RandomAccessFile(name, permission);
 	}
-	public void writepix(int x, int y, short color) throws IOException {
+    public void writepix(int x, int y, short color) throws IOException {
 		// byte[] b = new byte[] { (byte) color };
 		file.seek((x*8+y)*2);
 		file.writeShort(color);
 	}
 	public void clear(int color) throws IOException {
 	     for (int i = 0; i < length; i++) {
-	       	file.writeByte(0xAA);
+	       	file.writeByte(0x00);
 	     }
 	}
-	
-    public static short color(int red, int green, int blue) {
-        if (red > 31) {
-            red = 31;
-        }
-        
-        if (green > 63) {
-            green = 63;
-        }
-        
-        if (blue > 31) {
-            blue = 31;
-        }
-        
-        return (short) ((blue<<8)+red*8+green/8+((green%8)<<13)); 
+	/* Convert the color to the corresponding short RGB565 */
+	public short color(int red, int green, int blue) {
+		if (red > 31)
+			red = 31;
+		if (green>63)
+			green = 63;
+		if  (blue>31)
+			blue = 31;
+
+		return (short) ((blue<<8)+red*8+green/8+((green%8)<<13));
     }
  
 	/* read the pixel */
