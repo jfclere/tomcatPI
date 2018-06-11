@@ -3,8 +3,8 @@ function addCanvas(canvas_id, color, param_i, param_j) {
     var context = canvas.getContext('2d');
 
     context.beginPath();
-    context.rect(0, 0, 50, 50);
-    context.fillStyle = "rgb("+color+")";
+    context.rect(0, 0, 0, 0);
+    context.fillStyle = "rgba("+color+")";
     context.fill();
     context.lineWidth = 7;
     context.strokeStyle = 'black';
@@ -27,7 +27,7 @@ function addCanvas(canvas_id, color, param_i, param_j) {
         context.strokeStyle = 'black';
         context.stroke();
     }
-    canvas.addEventListener("click", canvasClick, false);
+    canvas.addEventListener("click touchstart", canvasClick, false);
     canvas.canvas_id = canvas_id;
     canvas.i = param_i;
     canvas.j = param_j;
@@ -36,7 +36,7 @@ function addCanvas(canvas_id, color, param_i, param_j) {
 
 
 function rgbToHex(rgb_str) {
-    var rgb = /rgba?\((\d+), (\d+), (\d+)(?:,\s*[\d\.]+)?\)/.exec(rgb_str);
+    var rgb = /rgba?\((\d+), (\d+), (\d+)(?:,\s*[\d\.]+)?\)/i.exec(rgb_str);
     var r = rgb[1], g = rgb[2], b = rgb[3];
     
     // alert("R:"+r+" | G:"+g+"| B:"+b+" => RGBA: "+rgb_str);
