@@ -33,7 +33,7 @@ public class FrameBuffer extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Process paramters.
         String param_i = request.getParameter("i");
         String param_j = request.getParameter("j");
@@ -44,9 +44,9 @@ public class FrameBuffer extends HttpServlet {
         if (param_i != null && param_j != null && param_red != null && param_green != null && param_blue != null) {
             int p_i = Integer.parseInt(param_i);
             int p_j = Integer.parseInt(param_j);
-            int red = Integer.parseInt(param_red);
-            int green = Integer.parseInt(param_green);
-            int blue = Integer.parseInt(param_blue);
+            int red = Integer.parseInt(param_red)/8;
+            int green = Integer.parseInt(param_green)/4;
+            int blue = Integer.parseInt(param_blue)/8;
 
             if(p_i >= 0 && p_i <= 7 && p_j >= 0 && p_j <= 7) {
                 pi.writepix(p_i, p_j, pi.color(red, green, blue));
@@ -92,7 +92,7 @@ public class FrameBuffer extends HttpServlet {
     		out.println("             <div id=\"row" + i + "\">");
     		for (int j=0; j<8; j++) {
     			short pixel = pi.readpix(i, j);
-    			String color = pi.getRed(pixel) + ", " + pi.getGreen(pixel) + ", " + pi.getBlue(pixel);
+    			String color = pi.getRed(pixel)*8 + ", " + pi.getGreen(pixel)*4 + ", " + pi.getBlue(pixel)*8;
     			String myCanvas = "myCanvas" + i + "X" + j;
 
                 out.println("            <canvas id=\"" + myCanvas + "\" width=\"50\" height=\"50\" data-color=\"rgb(" + color + ")\" onchange=\"changeColor('" + myCanvas + "');\"></canvas>");
@@ -114,7 +114,7 @@ public class FrameBuffer extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 }
