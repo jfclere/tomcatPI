@@ -59,10 +59,6 @@ public class PIFrameBuffer {
 		return (pixel & cache) * 8 + green;
 	}
 	
-	public static void main(String[] args) throws IOException {
-		
-	}
-	
 	private void close() throws IOException {
 		file.close();
 		

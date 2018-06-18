@@ -31,29 +31,32 @@ public class FrameBuffer extends HttpServlet {
     }
     
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Process paramters.
         String param_i = request.getParameter("i");
         String param_j = request.getParameter("j");
         String param_red = request.getParameter("red");
         String param_green = request.getParameter("green");
         String param_blue = request.getParameter("blue");
-
-        if (param_j != null && param_i != null) {
+        
+        if (param_i != null && param_j != null && param_red != null && param_green != null && param_blue != null) {
             int p_i = Integer.parseInt(param_i);
             int p_j = Integer.parseInt(param_j);
             int red = Integer.parseInt(param_red);
             int green = Integer.parseInt(param_green);
             int blue = Integer.parseInt(param_blue);
 
-            pi.writepix(p_i, p_j, pi.color(red, green, blue));
+            if(p_i >= 0 && p_i <= 7 && p_j >= 0 && p_j <= 7) {
+                pi.writepix(p_i, p_j, pi.color(red, green, blue));
+            }
         }
+        
     	PrintWriter out = response.getWriter();
         String title = "PI frame buffer demo";
 
-    	out.println("<!DOCTYPE html>");
+        out.println("<!DOCTYPE html>");
         out.println("    <head>");
         out.println("         <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
         out.println("         <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
@@ -62,7 +65,7 @@ public class FrameBuffer extends HttpServlet {
         out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\">");
         out.println("         <link rel=\"stylesheet\" href=\"css/bootstrap-colorpicker.min.css\">");
         out.println("         <link rel=\"stylesheet\" href=\"css/styles.css\">");
-        out.println("         <!-- colorpicker lib: https://github.com/farbelous/bootstrap-colorpicker.git -->");
+
         out.println("         <script type=\"text/javascript\" src=\"js/jquery-3.2.1.min.js\"></script>");
         out.println("         <script type=\"text/javascript\" src=\"js/popper.min.js\"></script>");
         out.println("         <script type=\"text/javascript\" src=\"js/tooltip.min.js\"></script>");
@@ -77,35 +80,29 @@ public class FrameBuffer extends HttpServlet {
         out.println("             <span class=\"input-group-addon\"><i id=\"colorBox\"></i></span>");
         out.println("         </div>");
         out.println("         <hr>");
-        out.println("        <center>");
-        out.println("             <section class=\"content\">");
-        out.println("                 <div id=\"tomcatPI\">");
-        out.println("                     <div class=\"panel panel-filled\">");
-        out.println("                          <!-- Panel header -->");
-        out.println("                          <div class=\"panel-heading\">");
-        out.println("                              " + title);
-        out.println("                          </div>");
-        out.println("                          <hr>");
-        out.println("                          <!-- Panel body -->");
-        out.println("                          <div class=\"panel-body\"><table><tbody>");
+        out.println("        <section class=\"container content\">");
+        out.println("           <div class=\"panel panel-filled\" id=\"tomcatPI\">");
+        out.println("              <!-- Panel header -->");
+        out.println("              <div class=\"panel-heading\">" + title + "</div>");
+        out.println("              <hr>");
+        out.println("              <!-- Panel body -->");
+        out.println("              <div class=\"panel-body\">");
         
     	for (int i=0; i<8; i++) {
-    		out.println("                             <div id=\"row" + i + "\">");
+    		out.println("             <div id=\"row" + i + "\">");
     		for (int j=0; j<8; j++) {
     			short pixel = pi.readpix(i, j);
     			String color = pi.getRed(pixel) + ", " + pi.getGreen(pixel) + ", " + pi.getBlue(pixel);
     			String myCanvas = "myCanvas" + i + "X" + j;
 
-                out.println("                                       <canvas id=\"" + myCanvas + "\" width=\"50\" height=\"50\" data-color=\"rgb(" + color + ")\" onchange=\"changeColor('" + myCanvas + "');\"></canvas>");
+                out.println("            <canvas id=\"" + myCanvas + "\" width=\"50\" height=\"50\" data-color=\"rgb(" + color + ")\" onchange=\"changeColor('" + myCanvas + "');\"></canvas>");
 
     		}
-            out.println("                             </div>");
+            out.println("             </div>");
     	}
-    	out.println("                          </div>");
-        out.println("                     </div>");
-        out.println("                 </div>");
-        out.println("             </section>");
-        out.println("        </center>");
+    	out.println("              </div>");
+        out.println("           </div>");
+        out.println("        </section>");
         out.println("     </body>");
         out.println("     <script type=\"text/javascript\" src=\"js/script.js\"></script>");
         out.println("     <script>");
@@ -115,9 +112,9 @@ public class FrameBuffer extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 }

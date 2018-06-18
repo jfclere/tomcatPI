@@ -1,0 +1,25 @@
+         <label>Color:</label>
+         <div id="color_picker" class="input-group colorpicker-component">
+             <input id="userColor" type="text" value="#00AABB" class="form-control" />
+             <span class="input-group-addon"><i id="colorBox"></i></span>
+         </div>
+         <hr>
+        <section class="container content">
+           <div class="panel panel-filled" id="tomcatPI">
+              <!-- Panel header -->
+              <div class="panel-heading">title</div>
+              <hr>
+              <!-- Panel body -->
+              <div class="panel-body">
+              <% for (int i = 0; i < 8; i++) { %>
+    	         <div id="row<%= i %>">
+    		   <%for (int j = 0; j < 8; j++) { %>
+    		      <canvas id="myCanvas<%= i %>X<%= j %>" width="50" height="50" data-color="rgb(250, 250, 250)" onchange="changeColor('myCanvas<%= i %>X<%= j %>');"></canvas>';
+
+    		   <%}%>
+
+                  </div>
+    	         <%}%>
+           </div>
+           </div>
+        </section>

@@ -1,12 +1,12 @@
 $(function () {
     $("#color_picker").colorpicker({
         format: 'rgb',
-            inline: false,
-            container: true,
-            useAlpha: false,
-            extensions: [{
-                name: 'swatches',
-                colors: {
+        inline: false,
+        container: true,
+        useAlpha: false,
+        extensions: [{
+            name: 'swatches',
+            colors: {
                     'tetrad1': 'rgb(255, 0, 6)',
                     'tetrad2': 'rgb(27, 255, 0)',
                     'tetrad3': 'rgb(225, 255, 0)',
@@ -16,16 +16,13 @@ $(function () {
                     'tetrad7': 'rgb(0, 255, 19)',
                     'tetrad8': 'rgb(255, 255, 255)',
                     'tetrad9': 'rgb(0, 0, 0)'
-                },
-                namesAsValues: false
-            }]}).on('colorpickerCreate', function (e) {
+            },
+            namesAsValues: false
+        }]
+    }).on('colorpickerCreate', function (e) {
         e.color.tetrad().forEach(function (color, i) {
             var colorStr = color.toString(e.color.format);
-            
-            e.colorpicker.picker.find('.colorpicker-swatch[data-name="tetrad' + (i + 1) + '"]')
-            .css('background-color', colorStr)
-            .attr('data-value', colorStr)
-            .attr('title', colorStr);
+            e.colorpicker.picker.find('.colorpicker-swatch[data-name="tetrad' + (i + 1) + '"]').css('background-color', colorStr).attr('data-value', colorStr).attr('title', colorStr);
         });
     });
 });
@@ -71,10 +68,12 @@ function addCanvas(canvas_id, color, param_i, param_j) {
         canvas.setAttribute('data-color', userColor.value);
 
         var client = new XMLHttpRequest();
-        var requestUrl = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname + "?i=" + event.target.i + "&j=" + event.target.j + "&red=" + getRed(userColor.value) + "&green=" + getGreen(userColor.value) + "&blue=" + getBlue(userColor.value);
+        var requestUrl = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname;
+        var requestData = "i=" + event.target.i + "&j=" + event.target.j + "&red=" + getRed(userColor.value) + "&green=" + getGreen(userColor.value) + "&blue=" + getBlue(userColor.value);
         
-        client.open("GET", requestUrl);
-        client.send();
+        client.open("POST", requestUrl, true);
+        client.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        client.send(requestData);
         
         changeColor(event.target.canvas_id, userColor.value);
     }
@@ -87,29 +86,39 @@ function addCanvas(canvas_id, color, param_i, param_j) {
 
 
 function getRed(rgb_str) {
-    var rgb = /rgba?\((\d+), (\d+), (\d+)(?:,\s*[\d\.]+)?\)/.exec(rgb_str);
+  var red = 0;
+  var rgb_red = /rgba?\(\s*(\d+),(?:[\d\s]*),(?:[\d\s]*)(?:,\s*[\d\.]+)?\)/.exec(rgb_str);
+  if(rgb_red[1]) {
+     red = rgb_red[1];
+  }
 
-    return rgb[1];
+  return red;
 }
 
 function getGreen(rgb_str) {
-    var rgb = /rgba?\((\d+), (\d+), (\d+)(?:,\s*[\d\.]+)?\)/.exec(rgb_str);
+  var green = 0;
+  var rgb_green = /rgba?\((?:[\d\s]*),\s*(\d+),(?:[\d\s]*)(?:,\s*[\d\.]+)?\)/.exec(rgb_str);
+  if(rgb_green[1]) {
+     green = rgb_green[1];
+  }
 
-    return rgb[2];
+  return green;
 }
 
 function getBlue(rgb_str) {
-    var rgb = /rgba?\((\d+), (\d+), (\d+)(?:,\s*[\d\.]+)?\)/.exec(rgb_str);
+  var blue = 0;
+  var rgb_blue = /rgba?\((?:[\d\s]*),(?:[\d\s]*),\s*(\d+)(?:,\s*[\d\.]+)?\)/.exec(rgb_str);
+  if(rgb_blue[1]) {
+     blue = rgb_blue[1];
+  }
 
-    return rgb[3];
+  return blue;
 }
 
 function RGBtoHEX(rgb_str) {
     var rgb = /rgba?\((\d+), (\d+), (\d+)(?:,\s*[\d\.]+)?\)/.exec(rgb_str);
     var r = rgb[1], g = rgb[2], b = rgb[3];
-    
-    // alert("R:"+r+" | G:"+g+"| B:"+b+" => RGBA: "+rgb_str);
-    //return toHex(r)+toHex(g)+toHex(b);
+
     return toHex(r)+toHex(g)+toHex(b);
 }
 
