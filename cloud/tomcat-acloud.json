@@ -1,0 +1,50 @@
+{
+  "apiVersion": "apps/v1beta1",
+  "kind": "Deployment",
+  "metadata": {
+    "name": "tomcat-in-the-cloud"
+  },
+  "spec": {
+    "replicas": 2,
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "tomcat-in-the-cloud"
+        }
+      },
+      "spec" : {
+        "serviceAccountName": "tomcat-in-the-cloud",
+        "serviceAccount": "tomcat-in-the-cloud",
+        "containers": [
+          {
+            "name": "tomcat-in-the-cloud",
+            "image": "713257217023.dkr.ecr.eu-central-1.amazonaws.com/tomcat-in-the-cloud-repo:v2",
+            "ports": [
+              {
+                "containerPort": 8080
+              }
+            ],
+            "env": [
+              {
+                "name": "OPENSHIFT_KUBE_PING_NAMESPACE",
+                "value": "default"
+              },
+              {
+                "name": "JAVA_APP_JAR",
+                "value": "tomcat-in-the-cloud-1.0-SNAPSHOT.jar"
+              },
+              {
+                "name": "KUBERNETES_RO_SERVICE_HOST",
+                "value": "127.0.0.1"
+              },
+              {
+                "name": "KUBERNETES_RO_SERVICE_PORT",
+                "value": "8001"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
