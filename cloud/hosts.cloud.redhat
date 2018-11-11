@@ -52,8 +52,8 @@ openshift_deployment_type=origin
 # use this to lookup the latest exact version of the container images, which is the tag actually used to configure
 # the cluster. For RPM installations we just verify the version detected in your configured repos matches this
 # release.
-openshift_release="3.11.0"
-openshift_pkg_version="-3.11.0-1"
+#openshift_release="3.11.0"
+#openshift_pkg_version="-3.11.0-1"
 
 # default subdomain to use for exposed routes, you should have wildcard dns
 # for *.apps.test.example.com that points at your infra nodes which will run
@@ -104,7 +104,7 @@ debug_level=2
 # See: https://docs.okd.io/latest/admin_guide/image_policy.html
 #openshift_master_image_policy_config={"maxImagesBulkImportedPerRepository": 3, "disableScheduledImport": true}
 # This setting overrides allowedRegistriesForImport in openshift_master_image_policy_config. By default, all registries are allowed.
-#openshift_master_image_policy_allowed_registries_for_import=["docker.io", "*.docker.io", "*.redhat.com", "gcr.io", "quay.io", "registry.centos.org", "registry.redhat.io", "*.amazonaws.com"]
+openshift_master_image_policy_allowed_registries_for_import=["docker.io", "*.docker.io", "*.redhat.com", "gcr.io", "registry.centos.org", "registry.redhat.io", "*.amazonaws.com"]
 
 # Configure master API rate limits for external clients
 #openshift_master_external_ratelimit_qps=200

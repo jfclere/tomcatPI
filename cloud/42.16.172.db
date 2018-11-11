@@ -1,0 +1,16 @@
+$TTL 86400
+@   IN  SOA     dlp.cloud.redhat. root.cloud.redhat. (
+        2018050801  ;Serial
+        3600        ;Refresh
+        1800        ;Retry
+        604800      ;Expire
+        86400       ;Minimum TTL
+)
+        IN  NS      dlp.cloud.redhat.
+        IN  PTR     cloud.redhat.
+        IN  A       255.255.255.0
+
+         1 IN  PTR  dlp.cloud.redhat.
+        42 IN  PTR  master.cloud.redhat.
+        52 IN  PTR  slave1.cloud.redhat.
+        53 IN  PTR  slave2.cloud.redhat.
