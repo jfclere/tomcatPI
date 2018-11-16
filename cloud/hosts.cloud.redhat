@@ -5,22 +5,22 @@
 # should use an external load balancing solution that itself is highly available.
 
 [masters]
-master
+dhcp-144-245
 
 [etcd]
-master
+dhcp-144-245
 
 [nodes]
 # node.example.com openshift_node_group_name="node-config-infra"
-slave1 openshift_node_group_name="node-config-compute"
-slave2 openshift_node_group_name="node-config-compute"
-master openshift_node_group_name="node-config-infra"
+dhcp-144-248 openshift_node_group_name="node-config-compute"
+dhcp-144-205 openshift_node_group_name="node-config-compute"
+dhcp-144-245 openshift_node_group_name="node-config-infra"
 
 [nfs]
-slave1
+dhcp-144-248
 
 [lb]
-slave2
+dhcp-144-205
 
 # Create an OSEv3 group that contains the masters and nodes groups
 [OSEv3:children]
