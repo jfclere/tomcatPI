@@ -5,22 +5,23 @@
 # should use an external load balancing solution that itself is highly available.
 
 [masters]
-dhcp-144-245
+bela1.gva.redhat.com
 
 [etcd]
-dhcp-144-245
+bela1.gva.redhat.com
 
 [nodes]
 # node.example.com openshift_node_group_name="node-config-infra"
-dhcp-144-248 openshift_node_group_name="node-config-compute"
-dhcp-144-205 openshift_node_group_name="node-config-compute"
-dhcp-144-245 openshift_node_group_name="node-config-infra"
+bela2.gva.redhat.com openshift_node_group_name="node-config-compute"
+bela3.gva.redhat.com openshift_node_group_name="node-config-compute"
+bela4.gva.redhat.com openshift_node_group_name="node-config-compute"
+bela1.gva.redhat.com openshift_node_group_name="node-config-infra"
 
 [nfs]
-dhcp-144-248
+bela1.gva.redhat.com
 
 [lb]
-dhcp-144-205
+bela4.gva.redhat.com
 
 # Create an OSEv3 group that contains the masters and nodes groups
 [OSEv3:children]
