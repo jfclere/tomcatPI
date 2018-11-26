@@ -32,6 +32,7 @@ lb
 nfs
 
 [OSEv3:vars]
+openshift_disable_check=memory_availability
 ###############################################################################
 # Common/ Required configuration variables follow                             #
 ###############################################################################
