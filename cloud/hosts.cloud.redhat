@@ -14,21 +14,17 @@ bela1.gva.redhat.com
 # node.example.com openshift_node_group_name="node-config-infra"
 bela2.gva.redhat.com openshift_node_group_name="node-config-compute"
 bela3.gva.redhat.com openshift_node_group_name="node-config-compute"
-bela4.gva.redhat.com openshift_node_group_name="node-config-compute"
-bela1.gva.redhat.com openshift_node_group_name="node-config-infra"
+bela4.gva.redhat.com openshift_node_group_name="node-config-infra"
+bela1.gva.redhat.com openshift_node_group_name="node-config-master"
 
 [nfs]
 bela1.gva.redhat.com
-
-[lb]
-bela4.gva.redhat.com
 
 # Create an OSEv3 group that contains the masters and nodes groups
 [OSEv3:children]
 masters
 nodes
 etcd
-lb
 nfs
 
 [OSEv3:vars]
