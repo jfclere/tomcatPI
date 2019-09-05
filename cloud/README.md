@@ -131,3 +131,10 @@ time synchronization...
 /lib/systemd/systemd-timesyncd
 conf:
 /etc/systemd/timesyncd.conf
+
+NOTES on fedora30
+
+nsible-playbook -e "ansible_python_interpreter=/usr/bin/python3" -i /home/jfclere/tomcatPI/cloud/hosts.cloud.rpi4 playbooks/prerequisites.yml
+
+ansible-playbook -e "ansible_python_interpreter=/usr/bin/python3" -i /home/jfclere/tomcatPI/cloud/hosts.cloud.rpi4 playbooks/deploy_cluster.yml
+
