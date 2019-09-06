@@ -134,7 +134,12 @@ conf:
 
 NOTES on fedora30
 
-nsible-playbook -e "ansible_python_interpreter=/usr/bin/python3" -i /home/jfclere/tomcatPI/cloud/hosts.cloud.rpi4 playbooks/prerequisites.yml
+ansible-playbook -e "ansible_python_interpreter=/usr/bin/python3 ansible_pkg_mgr=yum" -i /home/jfclere/tomcatPI/cloud/hosts.cloud.rpi4 playbooks/prerequisites.yml
 
-ansible-playbook -e "ansible_python_interpreter=/usr/bin/python3" -i /home/jfclere/tomcatPI/cloud/hosts.cloud.rpi4 playbooks/deploy_cluster.yml
+ansible-playbook -e "ansible_python_interpreter=/usr/bin/python3 ansible_pkg_mgr=yum" -i /home/jfclere/tomcatPI/cloud/hosts.cloud.rpi4 playbooks/deploy_cluster.yml
+
+to remove:
+
+ansible-playbook -e "ansible_python_interpreter=/usr/bin/python3 ansible_pkg_mgr=yum" -i /home/jfclere/tomcatPI/cloud/hosts.cloud.rpi4 playbooks/adhoc/uninstall.yml
+
 
