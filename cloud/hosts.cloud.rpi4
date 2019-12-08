@@ -51,7 +51,7 @@ openshift_deployment_type=origin
 # the cluster. For RPM installations we just verify the version detected in your configured repos matches this
 # release.
 #openshift_release="3.11.0"
-openshift_pkg_version="-3.11.1-1"
+openshift_pkg_version="-3.11.1"
 
 # default subdomain to use for exposed routes, you should have wildcard dns
 # for *.apps.test.example.com that points at your infra nodes which will run
