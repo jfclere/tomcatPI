@@ -2,7 +2,7 @@
 if [ $? -ne 0 ]; then
    /usr/bin/sudo /usr/sbin/ifconfig wlan0 10.0.0.201 netmask 255.255.255.0
    /usr/bin/sleep 3
-   /usr/bin/sudo /usr/bin/systemctl start dhcpd
+   /usr/bin/sudo /usr/bin/systemctl restart isc-dhcp-server
 fi
 
 /usr/bin/cat /proc/sys/net/ipv4/ip_forward | /usr/bin/grep 0 1>/dev/null
