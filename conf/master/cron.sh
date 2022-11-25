@@ -12,6 +12,6 @@ if [ $? -eq 0 ]; then
   /usr/bin/echo "using $ESSID" >> /home/pi/log.txt
   /usr/bin/sudo /usr/sbin/service firewalld stop
   /usr/bin/sleep 1
-  /usr/bin/sudo /usr/bin/echo 1 > /proc/sys/net/ipv4/ip_forward
+  /usr/bin/sudo /usr/bin/bash -c '/usr/bin/echo 1 > /proc/sys/net/ipv4/ip_forward'
   /usr/bin/sudo /usr/sbin/iptables-restore /home/pi/tomcatPI/conf/master/gateway.ok.saintismier
 fi
