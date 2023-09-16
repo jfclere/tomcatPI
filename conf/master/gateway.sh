@@ -24,6 +24,10 @@ fi
 if [ $? -eq 0 ]; then
   ORGNET=alf0
 fi
+/usr/sbin/ifconfig wlp9s0 | grep 192.168
+if [ $? -eq 0 ]; then
+  ORGNET=wlp9s0
+fi
 
 /usr/sbin/ifconfig wlan1 | grep 10.0.0.201
 if [ $? -eq 0 ]; then
@@ -36,6 +40,10 @@ fi
 /usr/sbin/ifconfig alf0 | grep 10.0.0.201
 if [ $? -eq 0 ]; then
   DESTNET=alf0
+fi
+/usr/sbin/ifconfig wlp0s20f0u1 | grep 10.0.0.201
+if [ $? -eq 0 ]; then
+  DESTNET=wlp0s20f0u1
 fi
 
 if [ $DESTNET == ${ORGNET} ]; then
