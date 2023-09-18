@@ -7,7 +7,7 @@ DESTNET=eth0
 
 a=`cat /proc/sys/net/ipv4/ip_forward`
 if [ $a == "1" ]; then
-  # already done
+  echo "already done!!!"
   exit 0
 fi
 
@@ -54,6 +54,8 @@ fi
 echo 1 > /proc/sys/net/ipv4/ip_forward
 
 echo "$DESTNET to ${ORGNET}"
+/usr/bin/systemctl stop firewalld.service
+
 /usr/sbin/iptables -P FORWARD ACCEPT
 /usr/sbin/iptables --table nat -A POSTROUTING -o ${ORGNET} -j MASQUERADE
 
