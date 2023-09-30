@@ -8,7 +8,6 @@ DESTNET=eth0
 a=`cat /proc/sys/net/ipv4/ip_forward`
 if [ $a == "1" ]; then
   echo "already done!!!"
-  exit 0
 fi
 
 # find the network that is connected to the internet
@@ -47,7 +46,16 @@ if [ $? -eq 0 ]; then
 fi
 
 if [ $DESTNET == ${ORGNET} ]; then
-  echo "Something wrong... $DESTNET"
+  echo "Something wrong guessing from dmesg"
+  LAN=`/usr/bin/dmesg | /usr/bin/grep rt2800usb | /usr/bin/grep renamed | /usr/bin/tail -1 |  /usr/bin/awk ' { print $4 } ' | /usr/bin/sed 's;:;;'`
+  /usr/sbin/ifconfig $LAN | grep 10.0.0.201
+  if [ $? -eq 0 ]; then
+    DESTNET=$LAN
+  fi
+fi
+
+if [ $DESTNET == ${ORGNET} ]; then
+  echo "Something wrong $DESTNET"
   exit 1
 fi
 

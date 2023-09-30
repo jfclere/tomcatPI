@@ -6,6 +6,11 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 /usr/sbin/ifconfig $LAN | /usr/bin/grep  10.0.0.201
+INTER=`sudo grep ^interface= /etc/hostapd/hostapd.conf |  /usr/bin/awk -F= ' { print $2 } '`
+if [ $INTER != $LAN ]; then
+  echo " Please use $INTER as interface in /etc/hostapd/hostapd.conf"
+  exit 1
+fi
 if [ $? -ne 0 ]; then
    /usr/bin/sudo /usr/sbin/ifconfig $LAN 10.0.0.201 netmask 255.255.255.0
    /usr/bin/sleep 3
