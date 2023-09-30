@@ -8,7 +8,16 @@ fi
 /usr/sbin/ifconfig $LAN | /usr/bin/grep  10.0.0.201
 INTER=`sudo grep ^interface= /etc/hostapd/hostapd.conf |  /usr/bin/awk -F= ' { print $2 } '`
 if [ $INTER != $LAN ]; then
-  echo " Please use $INTER as interface in /etc/hostapd/hostapd.conf"
+  /usr/bin/echo " Please use $INTER as interface in /etc/hostapd/hostapd.conf"
+  exit 1
+fi
+
+# check rfkill
+ID=`/usr/sbin/iw $LAN info | /usr/bin/grep wiphy |  /usr/bin/awk ' { print $2 } '`
+RFID=`/usr/sbin/rfkill | /usr/bin/grep wlan | /usr/bin/grep phy | /usr/bin/grep $ID | /usr/bin/awk ' { print $1 } '`
+/usr/sbin/rfkill list $RFID | /usr/bin/grep blocked | /usr/bin/grep yes
+if [ $? -eq 0 ]; then
+  /usr/bin/echo "Try: rfkill unblock $RFID and retry"
   exit 1
 fi
 if [ $? -ne 0 ]; then
