@@ -2,6 +2,8 @@
 
 ORGNET=eth0
 DESTNET=eth0
+# LOCALNETADDR=192.168
+LOCALNETADDR=10.70
 
 #service firewalld stop
 
@@ -11,19 +13,19 @@ if [ $a == "1" ]; then
 fi
 
 # find the network that is connected to the internet
-/usr/sbin/ifconfig wlan0 | grep 192.168
+/usr/sbin/ifconfig wlan0 | grep ${LOCALNETADDR}
 if [ $? -eq 0 ]; then
   ORGNET=wlan0
 fi
-/usr/sbin/ifconfig wlan1 | grep 192.168
+/usr/sbin/ifconfig wlan1 | grep ${LOCALNETADDR}
 if [ $? -eq 0 ]; then
   ORGNET=wlan1
 fi
-/usr/sbin/ifconfig alf0 | grep 192.168
+/usr/sbin/ifconfig alf0 | grep ${LOCALNETADDR}
 if [ $? -eq 0 ]; then
   ORGNET=alf0
 fi
-/usr/sbin/ifconfig wlp9s0 | grep 192.168
+/usr/sbin/ifconfig wlp9s0 | grep ${LOCALNETADDR}
 if [ $? -eq 0 ]; then
   ORGNET=wlp9s0
 fi
