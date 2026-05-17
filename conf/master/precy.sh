@@ -1,5 +1,62 @@
 #!/bin/bash
 # Here we used the AWUS036ACH a pain due to driver...
+
+# first install wifi information from /home/pi/wpa_supplicant.conf
+# convert wpa_supplicant.conf in nmcli commands
+getpass() {
+sid=$1
+has_ssid=false
+has_psk=false
+has_key_mgmt=false
+while IFS= read -r line; do
+  case "$line" in
+     *ssid=*)
+       ssid=`/usr/bin/echo $line | awk -F = ' { print $2 } '`
+       has_ssid=true
+       ;;
+     *psk=*)
+       psk=`/usr/bin/echo $line | awk -F = ' { print $2 } '`
+       has_psk=true
+       ;;
+     *key_mgmt=*)
+       key_mgmt=`/usr/bin/echo $line | awk -F = ' { print $2 } '`
+       has_key_mgmt=true
+       ;;
+  esac
+  if $has_ssid && $has_psk && $has_key_mgmt; then
+    has_ssid=false
+    has_psk=false
+    has_key_mgmt=false
+    name=`/usr/bin/echo $ssid | awk -F \" ' { print $2 } '`
+    if [ "$sid" = "$name" ]; then
+      pass=`/usr/bin/echo $psk | awk -F \" ' { print $2 } '`
+      /usr/bin/echo "$pass"
+    fi
+  fi
+done < /home/pi/wpa_supplicant.conf
+}
+
+#
+# Check for wifi
+checkstartwifi()
+{
+  /usr/sbin/iw wlan1 link | /usr/bin/grep SSID > /dev/null
+  if [ $? -ne 0 ]; then
+    # We don't have a connection...
+    # Try to connect to one of wifi we can see
+    for sid in `/usr/bin/nmcli -t -f SSID device wifi`
+    do
+      /usr/bin/echo "sid: $sid"
+      pass=`getpass $sid`
+      if [ "x$pass" = "x" ]; then
+        /usr/bin/echo "Ignore $sid not in our list"
+      else
+        /usr/bin/echo "trying $sid $pass"
+        /usr/bin/sudo /usr/bin/nmcli device wifi connect $sid password $pass ifname wlan1
+      fi
+    done
+  fi
+}
 /usr/sbin/iw wlan0 info
 if [ $? -ne 0 ]; then
   /usr/bin/echo "failed wlan0 not found"
@@ -39,8 +96,14 @@ sudo ip route del default via 10.0.0.201 dev wlan0 2>/dev/null
 WLAN1_IP=$(ip -4 addr show wlan1 | awk '/inet / {print $2}' | cut -d/ -f1 | head -n 1)
 
 if [ -z "$WLAN1_IP" ]; then
-    echo "ERROR: wlan1 has no IP. Is the USB dongle connected to Movistar?"
-    exit 1
+    echo "ERROR: wlan1 has no IP. Is the USB dongle connected to a WIFI???"
+    checkstartwifi
+    /usr/bin/sleep 60
+    WLAN1_IP=$(ip -4 addr show wlan1 | awk '/inet / {print $2}' | cut -d/ -f1 | head -n 1)
+    if [ -z "$WLAN1_IP" ]; then
+      echo "ERROR: wlan1 has no IP, even after trying /home/pi/wpa_supplicant!"
+      exit 1
+    fi
 fi
 
 echo "Using External IP: $WLAN1_IP"
